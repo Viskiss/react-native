@@ -22,7 +22,7 @@ const Input: React.FC<PropsType> = (props: PropsType) => {
         onFocus={() => setIsFocused(true)}
       />
       {props.touched && props.errors ? (
-        <Text>{props.errors}</Text>
+        <Text style={styles.labelError}>{props.errors}</Text>
       ) : (
         <Text>{props.label}</Text>
       )}
@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     borderColor: '#333030',
+  },
+  labelError: {
+    color: 'red',
+    fontWeight: 'bold',
   },
 });
 
