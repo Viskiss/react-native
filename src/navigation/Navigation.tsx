@@ -1,12 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { usersSliceActions } from '../redux/slices/usersSlice';
+import { userSliceActions } from 'src/redux/slices/userSlice';
 
-import { useAppDispatch, useAppSelector } from '../redux/store';
+import { ActivityIndicator, View } from 'react-native';
+
+import { useAppDispatch, useAppSelector } from 'src/redux/store';
 
 import LoginStack from './components/LoginStack';
 import MainTab from './components/MainTab';
+
+import { styles } from './Navigation.styles';
 
 export type RootStackParamListType = {
   Login: undefined;
@@ -14,7 +17,7 @@ export type RootStackParamListType = {
 };
 
 const Navigation: React.FC = () => {
-  const user = useAppSelector((state) => state.usersStore.currentUser);
+  const user = useAppSelector((state) => state.userStore.currentUser);
 
   const [isAuthorized, setIsAuthorized] = useState(false);
   const dispatch = useAppDispatch();
@@ -22,7 +25,7 @@ const Navigation: React.FC = () => {
   useEffect(() => {
     (async () => {
       const currentUser = await AsyncStorage.getItem('user');
-      dispatch(usersSliceActions.login(currentUser));
+      dispatch(userSliceActions.setUser(currentUser));
       setIsAuthorized(true);
     })();
   }, [dispatch, setIsAuthorized]);
@@ -34,19 +37,10 @@ const Navigation: React.FC = () => {
       </View>
     );
   }
-  // eslint-disable-next-line no-console
-  console.log(user);
+
   return (
     <View style={styles.container}>{!user ? <LoginStack /> : <MainTab />}</View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-  },
-});
 
 export default Navigation;

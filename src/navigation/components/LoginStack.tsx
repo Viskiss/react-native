@@ -1,8 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Login from '../../ui/screens/Entry/Login';
-import Registration from '../../ui/screens/Entry/Registration';
+import Login from 'src/ui/screens/auth/Login/Login';
+import Registration from 'src/ui/screens/auth/Registration/Registration';
 
 export type LoginStackParamListType = {
   Login: undefined;

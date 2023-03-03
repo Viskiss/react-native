@@ -2,13 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
 
-import userReduser from './slices/usersSlice';
-import entityReduser from './slices/entitySlice';
+import userReduser from './slices/userSlice';
+import pokemonReduser from './slices/pokemonSlice';
 
 const store = configureStore({
   reducer: {
-    usersStore: userReduser,
-    entityStore: entityReduser,
+    userStore: userReduser,
+    pokemonStore: pokemonReduser,
   },
 });
 

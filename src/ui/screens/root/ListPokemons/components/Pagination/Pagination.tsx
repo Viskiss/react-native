@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { Text, View } from 'react-native';
-import Button from '../../../components/Button';
+
+import Button from 'src/ui/components/Button/Button';
 
 export type PropsType = {
   page: number;

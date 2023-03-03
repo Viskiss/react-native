@@ -1,17 +1,20 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import axios from 'axios';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { IPokemon } from 'pokeapi-typescript';
 
-import axios from 'axios';
-import type { MainTabParamListType } from '../../../navigation/components/MainTab';
-import { useAppSelector } from '../../../redux/store';
+import { Text, View } from 'react-native';
+
+import type { MainTabParamListType } from 'src/navigation/components/MainTab';
+import { useAppSelector } from 'src/redux/store';
+
+import { styles } from './Home.styles';
 
 type PropsType = NativeStackScreenProps<MainTabParamListType, 'Home'>;
 
 const Home: React.FC<PropsType> = () => {
   const [pokemon, setPokemon] = useState<IPokemon>();
-  const user = useAppSelector((state) => state.usersStore.currentUser);
+  const user = useAppSelector((state) => state.userStore.currentUser);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +29,6 @@ const Home: React.FC<PropsType> = () => {
 
         setPokemon(ramdomPokemon.data);
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.log(err);
       }
     })();
@@ -44,15 +46,5 @@ const Home: React.FC<PropsType> = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  userName: {
-    fontWeight: 'bold',
-  },
-});
 
 export default Home;

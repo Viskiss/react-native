@@ -7,20 +7,21 @@ import { useNavigation } from '@react-navigation/native';
 
 import {
   Keyboard,
-  StyleSheet,
   Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { usersSliceActions } from '../../../redux/slices/usersSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/store';
+import { userSliceActions } from 'src/redux/slices/userSlice';
 
-import { fieldsValidation } from '../../../utils/validationFields';
-import type { RootStackParamListType } from '../../../navigation/Navigation';
+import { fieldsValidation } from 'src/utils/validationFields';
+import type { RootStackParamListType } from 'src/navigation';
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Input from 'src/ui/components/Input';
+import Button from 'src/ui/components/Button';
+
+import { styles } from './Login.styles';
 
 type PropsType = NativeStackScreenProps<RootStackParamListType, 'Login'>;
 
@@ -29,39 +30,40 @@ type ProfileScreenNavigationPropType = PropsType['navigation'];
 const Login: React.FC<PropsType> = () => {
   const navigation = useNavigation<ProfileScreenNavigationPropType>();
 
-  const users = useAppSelector((state) => state.usersStore.users);
-
   const dispatch = useAppDispatch();
 
-  const findRegisteredUser = (name: string, password: string) => {
-    const findName = users.find((user) => user.name === name);
-    const matchPassword = users.find((user) => user.password === password);
-    if (findName && matchPassword) {
-      return true;
-    }
-    return false;
+  const findRegisteredUser = async (name: string, password: string) => {
+    const users = await AsyncStorage.getItem('users');
+    console.log(users);
+    // if (users) {
+    //   const findName = users.find((user) => user.name === name);
+    //   const matchPassword = users.find((user) => user.password === password);
+    //   if (findName && matchPassword) {
+    //     return true;
+    //   }
+    //   return false;
+    // }
   };
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      email: '',
       password: '',
     },
     validationSchema: Yup.object({
-      name: fieldsValidation.name,
+      email: fieldsValidation.email,
       password: fieldsValidation.password,
     }),
     onSubmit: async (values) => {
       try {
-        const { name, password } = values;
-        if (!findRegisteredUser(name, password)) {
+        const { email, password } = values;
+        if (!findRegisteredUser(email, password)) {
           navigation.navigate('Registration');
         }
         await AsyncStorage.setItem('user', JSON.stringify(values));
         const currentUser = await AsyncStorage.getItem('user');
-        dispatch(usersSliceActions.login(currentUser));
+        dispatch(userSliceActions.setUser(currentUser));
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.log(error);
       }
     },
@@ -72,8 +74,8 @@ const Login: React.FC<PropsType> = () => {
         <Text style={styles.screenTitle}>Login</Text>
         <Input
           label="Enter your name"
-          errors={formik.touched.name ? formik.errors.name : undefined}
-          touched={formik.touched.name || ''}
+          errors={formik.touched.email ? formik.errors.email : undefined}
+          touched={formik.touched.email || ''}
           onChangeText={formik.handleChange('name')}
           {...formik.getFieldProps('name')}
         />
@@ -96,20 +98,5 @@ const Login: React.FC<PropsType> = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 100,
-    gap: 10,
-  },
-  screenTitle: {
-    marginBottom: 20,
-    fontSize: 30,
-    color: '#000',
-  },
-});
 
 export default Login;

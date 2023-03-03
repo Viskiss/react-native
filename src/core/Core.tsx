@@ -9,13 +9,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { SafeAreaView, StatusBar, StyleSheet, useColorScheme } from 'react-native';
+import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import store from './src/redux/store';
-import Navigation from './src/navigation/Navigation';
+import store from 'src/redux/store';
+import Navigation from 'src/navigation/Navigation';
 
-function App(): JSX.Element {
+import { styles } from './Core.styles';
+
+function Core(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -37,12 +39,4 @@ function App(): JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-  },
-});
-
-export default App;
+export default Core;

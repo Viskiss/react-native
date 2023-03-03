@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
 import PokeAPI from 'pokeapi-typescript';
-import Pagination from './components/Pagination';
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { entitiSliceActions } from '../../../redux/slices/entitySlice';
-import Item from './components/Item';
 
-const ListEntity: React.FC = () => {
+import { FlatList, ScrollView, View } from 'react-native';
+
+import { useAppDispatch, useAppSelector } from 'src/redux/store';
+import { pokemonSliceActions } from 'src/redux/slices/pokemonSlice';
+
+import Pagination from './components/Pagination/Pagination';
+import Item from './components/Item/Item';
+
+import { styles } from './ListPokemons.styles';
+
+const ListPokemons: React.FC = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(1);
 
-  const entiti = useAppSelector((state) => state.entityStore.entiti);
+  const entiti = useAppSelector((state) => state.pokemonStore.pokemon);
 
   useEffect(() => {
     (async () => {
@@ -21,7 +26,7 @@ const ListEntity: React.FC = () => {
 
         const resourceList = await PokeAPI.Pokemon.list(limit, offset);
 
-        dispatch(entitiSliceActions.upload(resourceList.results));
+        dispatch(pokemonSliceActions.setPokemons(resourceList.results));
         setCount(resourceList.count);
       } catch (err) {
         // eslint-disable-next-line no-console
@@ -31,20 +36,17 @@ const ListEntity: React.FC = () => {
   }, [dispatch, page]);
 
   return (
-    <View>
-      <Text>ListEntity</Text>
-      <FlatList
+    <ScrollView>
+      <View style={styles.container}>
+        <FlatList
         data={entiti}
         renderItem={({ item }) => <Item name={item.name} url={item.url} />}
         keyExtractor={(item) => item.name}
       />
-      <Pagination
-              page={page}
-              setPage={setPage}
-              total={count}
-            />
-    </View>
+      </View>
+      <Pagination page={page} setPage={setPage} total={count} />
+    </ScrollView>
   );
 };
 
-export default ListEntity;
+export default ListPokemons;

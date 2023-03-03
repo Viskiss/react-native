@@ -3,15 +3,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
-import { useAppDispatch } from '../../../redux/store';
-import { usersSliceActions } from '../../../redux/slices/usersSlice';
+import { useAppDispatch } from 'src/redux/store';
+import { usersSliceActions } from 'src/redux/slices/userSlice';
 
-import { fieldsValidation } from '../../../utils/validationFields';
+import { fieldsValidation } from 'src/utils/validationFields';
 
-import Button from '../../components/Button';
-import Input from '../../components/Input';
+import Button from 'src/ui/components/Button/Button';
+import Input from 'src/ui/components/Input/Input';
+
+import { styles } from './Registration.styles';
 
 const Registration: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +36,6 @@ const Registration: React.FC = () => {
           dispatch(usersSliceActions.registration(JSON.parse(currentUser)));
         }
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.log(error);
       }
     },
@@ -78,19 +79,5 @@ const Registration: React.FC = () => {
 
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 100,
-  },
-  screenTitle: {
-    marginBottom: 20,
-    fontSize: 30,
-    color: '#000',
-  },
-});
 
 export default Registration;
