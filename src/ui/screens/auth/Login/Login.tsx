@@ -64,6 +64,7 @@ const Login: React.FC<Props> = () => {
       <View style={styles.container}>
         <Text style={styles.screenTitle}>Login</Text>
         <Input
+          containerStyles={styles.inputContainer}
           label="Enter your name"
           errors={formik.touched.email ? formik.errors.email : undefined}
           touched={formik.touched.email || ''}
@@ -72,6 +73,7 @@ const Login: React.FC<Props> = () => {
         />
 
         <Input
+          containerStyles={styles.inputContainer}
           label="Enter your password"
           errors={formik.touched.password ? formik.errors.password : undefined}
           touched={formik.touched.password || ''}
@@ -79,11 +81,11 @@ const Login: React.FC<Props> = () => {
           {...formik.getFieldProps('password')}
         />
         <Button onPress={formik.handleSubmit}>
-          <Text>Submit</Text>
+          <Text style={styles.button}>Submit</Text>
         </Button>
 
         <Button onPress={() => navigation.navigate('Registration')}>
-          <Text>Go to registration</Text>
+          <Text style={styles.button}>Go to registration</Text>
         </Button>
       </View>
     </TouchableWithoutFeedback>

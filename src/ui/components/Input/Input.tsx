@@ -44,7 +44,7 @@ const Input: React.FC<Props> = (props: Props) => {
       {touched && errors ? (
         <Text style={styles.labelError}>{errors}</Text>
       ) : (
-        <Text>{label}</Text>
+        <Text style={styles.label}>{label}</Text>
       )}
     </View>
   );

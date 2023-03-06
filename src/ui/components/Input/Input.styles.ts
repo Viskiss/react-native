@@ -1,20 +1,35 @@
 import { StyleSheet } from 'react-native';
+import { defoultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     marginBottom: 15,
   },
   input: {
-    borderRadius: 20,
-    backgroundColor: '#d0cece',
+    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 5,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 5,
+    backgroundColor: defoultColors.background.input,
+    width: '80%',
   },
   inputActive: {
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: '#333030',
+    borderWidth: 3,
+    borderColor: defoultColors.text.main,
+    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 5,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 5,
+    backgroundColor: defoultColors.background.input,
+    width: '80%',
+    fontWeight: 'bold',
   },
   labelError: {
     color: 'red',
+    fontWeight: 'bold',
+  },
+  label: {
+    color: defoultColors.text.main,
     fontWeight: 'bold',
   },
 });

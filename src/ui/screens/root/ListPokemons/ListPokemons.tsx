@@ -42,7 +42,7 @@ const ListPokemons: React.FC = () => {
         <>
           <View>
             <FlatList
-            style={styles.container}
+              style={styles.container}
               data={entiti}
               renderItem={({ item }) => <Item name={item.name} url={item.url} />}
               keyExtractor={(item) => item.name}

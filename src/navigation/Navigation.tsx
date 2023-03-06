@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer } from '@react-navigation/native';
 import { userSliceActions } from 'src/redux/slices/userSlice';
 
 import { ActivityIndicator, View } from 'react-native';
-
 import { useAppDispatch, useAppSelector } from 'src/redux/store';
 
 import LoginStack from './components/LoginStack';
@@ -40,7 +40,9 @@ const Navigation: React.FC = () => {
   }
 
   return (
-    <View style={styles.container}>{!user ? <LoginStack /> : <MainTab />}</View>
+    <NavigationContainer>
+      {!user ? <LoginStack /> : <MainTab />}
+    </NavigationContainer>
   );
 };
 

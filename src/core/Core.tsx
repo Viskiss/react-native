@@ -7,7 +7,6 @@
 
 import React from 'react';
 import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
 
 import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -31,9 +30,7 @@ function Core(): JSX.Element {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-        <NavigationContainer>
           <Navigation />
-        </NavigationContainer>
       </Provider>
     </SafeAreaView>
   );

@@ -1,0 +1,6 @@
+{
+    "main": "Navigation.tsx",
+    "devDependencies": {
+        "@types/react-native-vector-icons": "^6.4.13"
+    }
+}

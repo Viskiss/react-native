@@ -50,18 +50,12 @@ const Registration: React.FC = () => {
             JSON.stringify(newUser.userEmail),
           );
 
-          const registeredUser = await AsyncStorage.getItem(
-            `${newUser.userEmail}`,
-          );
-
           await AsyncStorage.setItem(
             `${newUser.userEmail}`,
             JSON.stringify(newUser),
           );
 
-          if (registeredUser) {
-            dispatch(userSliceActions.setUser(newUser));
-          }
+          dispatch(userSliceActions.setUser(newUser));
         }
       } catch (error) {
         console.log(error);
