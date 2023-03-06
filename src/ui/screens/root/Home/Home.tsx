@@ -3,16 +3,16 @@ import axios from 'axios';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { IPokemon } from 'pokeapi-typescript';
 
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 
-import type { MainTabParamListType } from 'src/navigation/components/MainTab';
+import type { MainTabParamList } from 'src/navigation/components/MainTab';
 import { useAppSelector } from 'src/redux/store';
 
 import { styles } from './Home.styles';
 
-type PropsType = NativeStackScreenProps<MainTabParamListType, 'Home'>;
+type Props = NativeStackScreenProps<MainTabParamList, 'Home'>;
 
-const Home: React.FC<PropsType> = () => {
+const Home: React.FC<Props> = () => {
   const [pokemon, setPokemon] = useState<IPokemon>();
   const user = useAppSelector((state) => state.userStore.currentUser);
 
@@ -34,15 +34,36 @@ const Home: React.FC<PropsType> = () => {
     })();
   }, []);
 
+  console.log(1, user?.email);
+
   return (
     <View style={styles.container}>
-      <Text>
-        Welcome <Text style={styles.userName}>{user?.name}</Text>!
-      </Text>
-      <View>
-        <Text>{pokemon?.name}</Text>
-        <Text>{pokemon?.height}</Text>
-      </View>
+      {!pokemon ? (
+        <ActivityIndicator />
+      ) : (
+        <>
+          <Text>
+            Welcome <Text style={styles.userName}>{user?.email}</Text>!
+          </Text>
+          <View style={styles.rundomPokemon}>
+            <Text style={styles.rundomPokemonTitle}>{pokemon?.name}</Text>
+            <Text style={styles.rundomPokemonTitle}>
+              Height:{' '}
+              <Text style={styles.rundomPokemonNum}>{pokemon?.height}</Text>
+            </Text>
+            <Text style={styles.rundomPokemonTitle}>
+              Weight:{' '}
+              <Text style={styles.rundomPokemonNum}>{pokemon?.weight}</Text>
+            </Text>
+            <Image
+              style={styles.tinyLogo}
+              source={{
+                uri: pokemon?.sprites.front_default,
+              }}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 };

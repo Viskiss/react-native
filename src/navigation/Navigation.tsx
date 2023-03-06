@@ -11,7 +11,7 @@ import MainTab from './components/MainTab';
 
 import { styles } from './Navigation.styles';
 
-export type RootStackParamListType = {
+export type RootStackParamList = {
   Login: undefined;
   Registration: undefined;
 };
@@ -24,7 +24,8 @@ const Navigation: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const currentUser = await AsyncStorage.getItem('user');
+      const currentUser = await AsyncStorage.getItem('currentUser');
+
       dispatch(userSliceActions.setUser(currentUser));
       setIsAuthorized(true);
     })();

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 import { useAppDispatch } from 'src/redux/store';
-import { usersSliceActions } from 'src/redux/slices/userSlice';
+import { userSliceActions } from 'src/redux/slices/userSlice';
 
 import { fieldsValidation } from 'src/utils/validationFields';
 
@@ -17,23 +17,51 @@ import { styles } from './Registration.styles';
 
 const Registration: React.FC = () => {
   const dispatch = useAppDispatch();
+
+  const findDubleEmail = async (email: string) => {
+    const registeredEmail = await AsyncStorage.getItem(email);
+    if (registeredEmail) {
+      formik.setErrors({ email: 'This email is registered' });
+    } else {
+      return false;
+    }
+  };
   const formik = useFormik({
     initialValues: {
-      name: '',
+      email: '',
       password: '',
       repeatPassword: '',
     },
     validationSchema: Yup.object({
-      name: fieldsValidation.name,
+      email: fieldsValidation.email,
       password: fieldsValidation.password,
       repeatPassword: fieldsValidation.repeatPassword,
     }),
     onSubmit: async (values) => {
+      const { email, password } = values;
+      const newUser = {
+        userEmail: email,
+        userPassword: password,
+      };
       try {
-        await AsyncStorage.setItem('user', JSON.stringify(values));
-        const currentUser = await AsyncStorage.getItem('user');
-        if (currentUser) {
-          dispatch(usersSliceActions.registration(JSON.parse(currentUser)));
+        if ((await findDubleEmail(email)) === false) {
+          await AsyncStorage.setItem(
+            'currentUser',
+            JSON.stringify(newUser.userEmail),
+          );
+
+          const registeredUser = await AsyncStorage.getItem(
+            `${newUser.userEmail}`,
+          );
+
+          await AsyncStorage.setItem(
+            `${newUser.userEmail}`,
+            JSON.stringify(newUser),
+          );
+
+          if (registeredUser) {
+            dispatch(userSliceActions.setUser(newUser));
+          }
         }
       } catch (error) {
         console.log(error);
@@ -43,40 +71,39 @@ const Registration: React.FC = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
-      <Text style={styles.screenTitle}>Registration</Text>
-      <Input
-        label="Enter your name"
-        errors={formik.touched.name ? formik.errors.name : undefined}
-        touched={formik.touched.name || ''}
-        onChangeText={formik.handleChange('name')}
-        {...formik.getFieldProps('name')}
-      />
+        <Text style={styles.screenTitle}>Registration</Text>
+        <Input
+          label="Enter your name"
+          errors={formik.touched.email ? formik.errors.email : undefined}
+          touched={formik.touched.email || ''}
+          onChangeText={formik.handleChange('email')}
+          {...formik.getFieldProps('email')}
+        />
 
-      <Input
-        label="Enter your password"
-        errors={formik.touched.password ? formik.errors.password : undefined}
-        touched={formik.touched.password || ''}
-        onChangeText={formik.handleChange('password')}
-        {...formik.getFieldProps('password')}
-      />
+        <Input
+          label="Enter your password"
+          errors={formik.touched.password ? formik.errors.password : undefined}
+          touched={formik.touched.password || ''}
+          onChangeText={formik.handleChange('password')}
+          {...formik.getFieldProps('password')}
+        />
 
-      <Input
-        label="Repeat your password"
-        errors={
-          formik.touched.repeatPassword
-            ? formik.errors.repeatPassword
-            : undefined
-        }
-        touched={formik.touched.repeatPassword || ''}
-        onChangeText={formik.handleChange('repeatPassword')}
-        {...formik.getFieldProps('repeatPassword')}
-      />
-      <Button onPress={formik.handleSubmit}>
-        <Text>Submit</Text>
-      </Button>
+        <Input
+          label="Repeat your password"
+          errors={
+            formik.touched.repeatPassword
+              ? formik.errors.repeatPassword
+              : undefined
+          }
+          touched={formik.touched.repeatPassword || ''}
+          onChangeText={formik.handleChange('repeatPassword')}
+          {...formik.getFieldProps('repeatPassword')}
+        />
+        <Button onPress={formik.handleSubmit}>
+          <Text>Submit</Text>
+        </Button>
       </View>
     </TouchableWithoutFeedback>
-
   );
 };
 

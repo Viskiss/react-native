@@ -6,7 +6,7 @@ import { Text, TextInput, View } from 'react-native';
 
 import { styles } from './Input.styles';
 
-type PropsType = {
+type Props = {
   onChangeText: ((text: string) => void) | undefined;
   containerStyles?: StyleProp<ViewStyle>;
   activeInputStyles?: StyleProp<ViewStyle>;
@@ -17,7 +17,7 @@ type PropsType = {
   touched?: FormikTouched<unknown>;
 };
 
-const Input: React.FC<PropsType> = (props: PropsType) => {
+const Input: React.FC<Props> = (props: Props) => {
   const {
     onChangeText,
     containerStyles,

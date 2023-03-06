@@ -14,7 +14,7 @@ const pokemonSlice = createSlice({
     setPokemons: (state, { payload }) => {
       state.pokemon = payload;
     },
-    getSelectPokemon: (state, { payload }) => {
+    showSelectPokemon: (state, { payload }) => {
       state.selectEntyti = payload;
     },
   },

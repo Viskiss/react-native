@@ -13,7 +13,7 @@ const userSlice = createSlice({
     setUser: (state, { payload }) => {
       state.currentUser = payload;
     },
-    exitUser: (state, { payload }) => {
+    removeUser: (state, { payload }) => {
       if (payload) {
         state.currentUser = null;
       }

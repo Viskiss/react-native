@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderRadius: 15,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     backgroundColor: '#d0cece',
     flexDirection: 'row',
     alignItems: 'center',
@@ -12,10 +12,11 @@ export const styles = StyleSheet.create({
     padding: 5,
   },
   tinyLogo: {
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
   },
   title: {
     fontWeight: 'bold',
+    fontSize: 20,
   },
 });

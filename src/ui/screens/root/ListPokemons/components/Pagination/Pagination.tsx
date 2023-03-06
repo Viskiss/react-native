@@ -2,14 +2,15 @@ import type { Dispatch, SetStateAction } from 'react';
 import { Text, View } from 'react-native';
 
 import Button from 'src/ui/components/Button/Button';
+import { styles } from './Pagination.styles';
 
-export type PropsType = {
+export type Props = {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   total: number;
 };
 
-const Pagination: React.FC<PropsType> = ({ page, setPage, total }) => {
+const Pagination: React.FC<Props> = ({ page, setPage, total }) => {
   const previousPageClickHandler = () => {
     if (page === 1) {
       return;
@@ -25,10 +26,10 @@ const Pagination: React.FC<PropsType> = ({ page, setPage, total }) => {
   };
 
   return (
-    <View>
-      <Button onPress={previousPageClickHandler}>{'<'}</Button>
-      <Text>{page}</Text>
-      <Button onPress={nextPageClickHandler}>{'>'}</Button>
+    <View style={styles.container}>
+      <Button containerStyle={styles.button} onPress={previousPageClickHandler}>{'<'}</Button>
+      <Text style={styles.text}>{page}</Text>
+      <Button containerStyle={styles.button} onPress={nextPageClickHandler}>{'>'}</Button>
     </View>
   );
 };
