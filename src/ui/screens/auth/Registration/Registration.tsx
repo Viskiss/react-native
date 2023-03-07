@@ -67,6 +67,7 @@ const Registration: React.FC = () => {
       <View style={styles.container}>
         <Text style={styles.screenTitle}>Registration</Text>
         <Input
+        containerStyles={styles.inputContainer}
           label="Enter your name"
           errors={formik.touched.email ? formik.errors.email : undefined}
           touched={formik.touched.email || ''}
@@ -75,6 +76,7 @@ const Registration: React.FC = () => {
         />
 
         <Input
+        containerStyles={styles.inputContainer}
           label="Enter your password"
           errors={formik.touched.password ? formik.errors.password : undefined}
           touched={formik.touched.password || ''}
@@ -83,6 +85,7 @@ const Registration: React.FC = () => {
         />
 
         <Input
+        containerStyles={styles.inputContainer}
           label="Repeat your password"
           errors={
             formik.touched.repeatPassword
@@ -94,7 +97,7 @@ const Registration: React.FC = () => {
           {...formik.getFieldProps('repeatPassword')}
         />
         <Button onPress={formik.handleSubmit}>
-          <Text>Submit</Text>
+          <Text style={styles.button}>Submit</Text>
         </Button>
       </View>
     </TouchableWithoutFeedback>

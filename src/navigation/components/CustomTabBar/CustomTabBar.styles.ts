@@ -1,26 +1,29 @@
 import { StyleSheet } from 'react-native';
+import { defoultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
     padding: 10,
-    backgroundColor: '#BFCC94',
+    backgroundColor: defoultColors.background.button,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
   },
+
   item: {
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  image: {
-    backgroundColor: 'white',
-  },
+
   text: {
-    color: '#344966',
+    color: defoultColors.text.main,
     fontWeight: 'bold',
   },
+
   textActive: {
-    color: '#F0F4EF',
+    color: defoultColors.text.opacity,
     fontWeight: 'bold',
   },
 });

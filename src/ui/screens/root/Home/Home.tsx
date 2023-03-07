@@ -34,8 +34,6 @@ const Home: React.FC<Props> = () => {
     })();
   }, []);
 
-  console.log(1, user?.email);
-
   return (
     <View style={styles.container}>
       {!pokemon ? (

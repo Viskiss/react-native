@@ -7,11 +7,12 @@ import type {
   ParamListBase,
   TabNavigationState,
 } from '@react-navigation/native';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { defoultColors } from 'src/constants/colors';
 
-import home from 'src/ui/assets/Home.svg';
-import list from 'src/ui/assets/List.svg';
-import profile from 'src/ui/assets/Profile.svg';
+import HomeLogo from 'src/ui/assets/Home.svg';
+import ListLogo from 'src/ui/assets/List.svg';
+import ProfileLogo from 'src/ui/assets/Profile.svg';
 
 import { styles } from './CustomTabBar.styles';
 
@@ -22,14 +23,14 @@ type TabBarProps = {
 };
 
 const MyTabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }) => {
-  const getIcon = (label: string) => {
+  const getIcon = (label: string, fill: string) => {
     if (label === 'Home') {
-      return home;
+      return <HomeLogo fill={fill} />;
     }
     if (label === 'Profile') {
-      return profile;
+      return <ProfileLogo fill={fill} />;
     }
-    return list;
+    return <ListLogo fill={fill} />;
   };
 
   return (
@@ -62,7 +63,13 @@ const MyTabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }) => 
             style={styles.item}
             key={label}
 >
-            <Image style={styles.image} source={getIcon(label)} />
+              {getIcon(
+                label,
+                !isFocused
+                  ? defoultColors.text.main
+                  : defoultColors.text.opacity,
+              )}
+
             <Text style={!isFocused ? styles.text : styles.textActive}>
               {label}
             </Text>

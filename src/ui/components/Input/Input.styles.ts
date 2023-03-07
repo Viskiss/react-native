@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 5,
     backgroundColor: defoultColors.background.input,
     width: '80%',
+    height: 50,
   },
   inputActive: {
     borderWidth: 3,
@@ -21,6 +22,7 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 5,
     backgroundColor: defoultColors.background.input,
+    height: 50,
     width: '80%',
     fontWeight: 'bold',
   },

@@ -3,4 +3,4 @@ build
 lock_node_version.js
 craco.config.js
 .eslintrc.js
-custom.d.ts
+declaration.d.ts

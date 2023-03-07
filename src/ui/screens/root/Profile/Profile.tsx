@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
   return (
     <View>
       <Text>Profile</Text>
-      <Button onPress={hendleLogOutUser}>LogOut</Button>
+      <Button onPress={hendleLogOutUser}><Text>LogOut</Text></Button>
     </View>
   );
 };

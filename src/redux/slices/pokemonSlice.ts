@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PokeResponseType } from 'src/types';
 
 const initialState = () => ({
-  pokemon: [] as PokeResponseType[],
+  pokemons: [] as PokeResponseType[],
   selectEntyti: {},
 });
 
@@ -12,7 +12,7 @@ const pokemonSlice = createSlice({
   initialState,
   reducers: {
     setPokemons: (state, { payload }) => {
-      state.pokemon = payload;
+      state.pokemons = [...state.pokemons, ...payload];
     },
     showSelectPokemon: (state, { payload }) => {
       state.selectEntyti = payload;

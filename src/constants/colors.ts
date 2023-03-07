@@ -1,7 +1,7 @@
 export const defoultColors = {
   text: {
     main: '#3b599a',
-    opacity: '#8e7cc3',
+    opacity: '#c7bfe0',
     error: '#fc7878',
   },
 

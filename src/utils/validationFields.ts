@@ -4,7 +4,7 @@ export const fieldsValidation = {
   email: Yup.string()
     .email('Email must be a valid email')
     .min(10, 'Min 10 length, Ex: 123@mail.ru')
-    .required(),
+    .required('Email required'),
   password: Yup.string()
     .lowercase()
     .min(5, 'The password is too short(min 5)')
