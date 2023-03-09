@@ -11,6 +11,5 @@ export const fieldsValidation = {
     .trim()
     .required('Password required'),
   repeatPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Please retype your password.'),
 };

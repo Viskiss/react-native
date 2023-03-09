@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
-import { userSliceActions } from 'src/redux/slices/userSlice';
 
 import { ActivityIndicator, View } from 'react-native';
-import { useAppDispatch, useAppSelector } from 'src/redux/store';
+
+import { useAppDispatch } from 'src/redux/store';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 import LoginStack from './components/LoginStack';
-import MainTab from './components/MainTab';
+import MainTabScreen from './components/MainTabScreen';
 
 import { styles } from './Navigation.styles';
 
@@ -17,7 +18,7 @@ export type RootStackParamList = {
 };
 
 const Navigation: React.FC = () => {
-  const user = useAppSelector((state) => state.userStore.currentUser);
+  const { currentUser, setCurrentUser } = useCurrentUser();
 
   const [isAuthorized, setIsAuthorized] = useState(false);
   const dispatch = useAppDispatch();
@@ -25,9 +26,15 @@ const Navigation: React.FC = () => {
   useEffect(() => {
     (async () => {
       const currentUser = await AsyncStorage.getItem('currentUser');
+      if (currentUser) {
+        const user = JSON.parse(currentUser);
 
-      dispatch(userSliceActions.setUser(currentUser));
-      setIsAuthorized(true);
+        const email = user.email;
+        const password = user.password;
+
+        setCurrentUser(email, password);
+        setIsAuthorized(true);
+      }
     })();
   }, [dispatch, setIsAuthorized]);
 
@@ -41,7 +48,7 @@ const Navigation: React.FC = () => {
 
   return (
     <NavigationContainer>
-      {!user ? <LoginStack /> : <MainTab />}
+      {!currentUser ? <LoginStack /> : <MainTabScreen />}
     </NavigationContainer>
   );
 };

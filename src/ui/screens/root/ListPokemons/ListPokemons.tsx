@@ -3,24 +3,26 @@ import PokeAPI from 'pokeapi-typescript';
 
 import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
 
-import { useAppDispatch, useAppSelector } from 'src/redux/store';
-import { pokemonSliceActions } from 'src/redux/slices/pokemonSlice';
-
-import type { PokemonStackParamList } from 'src/navigation/components/PokemonListStack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { usePokemon } from 'src/hooks/usePokemon';
+
 import Item from './components/Item/Item';
 
 import { styles } from './ListPokemons.styles';
 
+export type PokemonStackParamList = {
+  ListPokemons: undefined;
+  SelectPokemon: undefined | {url: string};
+};
+
 type Props = NativeStackScreenProps<PokemonStackParamList, 'ListPokemons'>;
 
 const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
-  const dispatch = useAppDispatch();
+  const { setPokemons, reloadPokemonList, pokemons } = usePokemon();
+
   const [page, setPage] = useState(1);
   const [loadingData, setLoadingData] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-
-  const entiti = useAppSelector((state) => state.pokemonStore.pokemons);
 
   useEffect(() => {
     (async () => {
@@ -31,14 +33,14 @@ const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
 
         const resourceList = await PokeAPI.Pokemon.list(limit, offset);
 
-        dispatch(pokemonSliceActions.setPokemons(resourceList.results));
+        setPokemons(resourceList.results);
 
         setLoadingData(false);
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [dispatch, page]);
+  }, [page, refreshing]);
 
   const fetchMorePokemon = () => {
     setPage(page + 1);
@@ -46,24 +48,41 @@ const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
 
   const onRefresh = () => {
     setRefreshing(true);
+    reloadPokemonList(1);
     setPage(1);
+    (async () => {
+      try {
+        setLoadingData(true);
+
+        const resourceList = await PokeAPI.Pokemon.list(20, 0);
+
+        setPokemons(resourceList.results);
+        console.log(page);
+
+        setLoadingData(false);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
     setRefreshing(false);
   };
 
   return (
     <View>
-      {!entiti.length && loadingData ? (
+      {!pokemons.length && loadingData ? (
         <ActivityIndicator size="large" />
       ) : (
         <View>
           <FlatList
             style={styles.container}
-            data={entiti}
+            data={pokemons}
             renderItem={({ item }) => (
               <Item
                 name={item.name}
-                url={item.url} navigation={navigation} route={route}
-/>
+                url={item.url}
+                navigation={navigation}
+                route={route}
+              />
             )}
             keyExtractor={(item) => item.name}
             onEndReachedThreshold={0.1}
@@ -74,6 +93,7 @@ const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
           />
         </View>
       )}
+      {loadingData && <ActivityIndicator style={styles.loader} size="large" />}
     </View>
   );
 };

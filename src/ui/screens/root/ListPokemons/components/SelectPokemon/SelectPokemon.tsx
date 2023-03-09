@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { IPokemon } from 'pokeapi-typescript';
 
-import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 
-import type { PokemonStackParamList } from 'src/navigation/components/PokemonListStack';
+import type { PokemonStackParamList } from '../Item/Item';
 
 import { styles } from './SelectPokemon.styles';
 
@@ -40,36 +48,37 @@ const SelectPokemon: React.FC<Props> = ({ route }) => {
   }, [pokemon]);
 
   return (
-    <View style={styles.container}>
-      {!pokemon ? (
-        <ActivityIndicator />
-      ) : (
-        <>
-          <Image
-            style={styles.image}
-            source={{
-              uri: pokemon?.sprites.front_default,
-            }}
-          />
-          <View style={styles.imageBox}>
-             <FlatList
-            numColumns={3}
-            data={getArrImages}
-            renderItem={({ item }) => (
-              <Image style={styles.tityImage} source={{ uri: item }} />
-            )}
-            keyExtractor={(item) => item}
-          />
-          </View>
+    <ScrollView>
+      <View style={styles.container}>
+        {!pokemon ? (
+          <ActivityIndicator />
+        ) : (
+          <>
+            <Image
+              style={styles.image}
+              source={{
+                uri: pokemon?.sprites.front_default,
+              }}
+            />
 
-          <View style={styles.infoBox}>
-            <Text style={styles.titleName}>{pokemon?.name}</Text>
-            <Text>Height :{pokemon?.height}</Text>
-            <Text>Weight :{pokemon?.weight}</Text>
-          </View>
-        </>
-      )}
-    </View>
+            <View style={styles.infoBox}>
+              <Text style={styles.titleName}>{pokemon?.name}</Text>
+              <Text style={styles.title}>Height :{pokemon?.height}</Text>
+              <Text style={styles.title}>Weight :{pokemon?.weight}</Text>
+            </View>
+
+            <FlatList
+              numColumns={2}
+              data={getArrImages}
+              renderItem={({ item }) => (
+                <Image style={styles.tityImage} source={{ uri: item }} />
+              )}
+              keyExtractor={(item) => item}
+            />
+          </>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 

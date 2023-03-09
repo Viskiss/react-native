@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { PokeResponseType } from 'src/types';
+import type { PokeResponse } from 'src/types/pokemon';
 
 const initialState = () => ({
-  pokemons: [] as PokeResponseType[],
-  selectEntyti: {},
+  pokemons: [] as PokeResponse[],
+  selectPokemon: {},
 });
 
 const pokemonSlice = createSlice({
@@ -14,8 +14,10 @@ const pokemonSlice = createSlice({
     setPokemons: (state, { payload }) => {
       state.pokemons = [...state.pokemons, ...payload];
     },
-    showSelectPokemon: (state, { payload }) => {
-      state.selectEntyti = payload;
+    reloadPokemonList: (state, { payload }) => {
+      if (payload) {
+        state.pokemons = [];
+      }
     },
   },
 });

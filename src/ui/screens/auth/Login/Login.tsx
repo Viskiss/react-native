@@ -7,15 +7,13 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
-import { useAppDispatch } from 'src/redux/store';
-import { userSliceActions } from 'src/redux/slices/userSlice';
-
 import { fieldsValidation } from 'src/utils/validationFields';
 import type { RootStackParamList } from 'src/navigation';
 
 import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
 
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { styles } from './Login.styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -24,8 +22,7 @@ type ProfileScreenNavigationProp = Props['navigation'];
 
 const Login: React.FC<Props> = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
-
-  const dispatch = useAppDispatch();
+  const { setUser } = useCurrentUser();
 
   const findRegisteredUser = async (email: string, password: string) => {
     const registeredUser = await AsyncStorage.getItem(email);
@@ -51,7 +48,8 @@ const Login: React.FC<Props> = () => {
         if (loginUser) {
           console.log(loginUser);
           await AsyncStorage.setItem('currentUser', JSON.stringify(values));
-          dispatch(userSliceActions.setUser(loginUser));
+
+          setUser(email, password);
         }
       } catch (error) {
         console.log(error);
@@ -65,7 +63,7 @@ const Login: React.FC<Props> = () => {
         <Text style={styles.screenTitle}>Login</Text>
         <Input
           containerStyles={styles.inputContainer}
-          label="Enter your name"
+          label="Enter your Email"
           errors={formik.touched.email ? formik.errors.email : undefined}
           touched={formik.touched.email || ''}
           onChangeText={formik.handleChange('email')}
@@ -74,7 +72,7 @@ const Login: React.FC<Props> = () => {
 
         <Input
           containerStyles={styles.inputContainer}
-          label="Enter your password"
+          label="Enter your Password"
           errors={formik.touched.password ? formik.errors.password : undefined}
           touched={formik.touched.password || ''}
           onChangeText={formik.handleChange('password')}

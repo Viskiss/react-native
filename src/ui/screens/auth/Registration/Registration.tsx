@@ -5,8 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
-import { useAppDispatch } from 'src/redux/store';
-import { userSliceActions } from 'src/redux/slices/userSlice';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 import { fieldsValidation } from 'src/utils/validationFields';
 
@@ -16,7 +15,7 @@ import Input from 'src/ui/components/Input/Input';
 import { styles } from './Registration.styles';
 
 const Registration: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { setUser } = useCurrentUser();
 
   const findDubleEmail = async (email: string) => {
     const registeredEmail = await AsyncStorage.getItem(email);
@@ -45,17 +44,14 @@ const Registration: React.FC = () => {
       };
       try {
         if ((await findDubleEmail(email)) === false) {
-          await AsyncStorage.setItem(
-            'currentUser',
-            JSON.stringify(newUser.userEmail),
-          );
+          await AsyncStorage.setItem('currentUser', JSON.stringify(values));
 
           await AsyncStorage.setItem(
             `${newUser.userEmail}`,
             JSON.stringify(newUser),
           );
 
-          dispatch(userSliceActions.setUser(newUser));
+          setUser(email, password);
         }
       } catch (error) {
         console.log(error);
@@ -67,8 +63,8 @@ const Registration: React.FC = () => {
       <View style={styles.container}>
         <Text style={styles.screenTitle}>Registration</Text>
         <Input
-        containerStyles={styles.inputContainer}
-          label="Enter your name"
+          containerStyles={styles.inputContainer}
+          label="Enter your Email"
           errors={formik.touched.email ? formik.errors.email : undefined}
           touched={formik.touched.email || ''}
           onChangeText={formik.handleChange('email')}
@@ -76,8 +72,8 @@ const Registration: React.FC = () => {
         />
 
         <Input
-        containerStyles={styles.inputContainer}
-          label="Enter your password"
+          containerStyles={styles.inputContainer}
+          label="Enter your Password"
           errors={formik.touched.password ? formik.errors.password : undefined}
           touched={formik.touched.password || ''}
           onChangeText={formik.handleChange('password')}
@@ -85,8 +81,8 @@ const Registration: React.FC = () => {
         />
 
         <Input
-        containerStyles={styles.inputContainer}
-          label="Repeat your password"
+          containerStyles={styles.inputContainer}
+          label="Repeat your Password"
           errors={
             formik.touched.repeatPassword
               ? formik.errors.repeatPassword

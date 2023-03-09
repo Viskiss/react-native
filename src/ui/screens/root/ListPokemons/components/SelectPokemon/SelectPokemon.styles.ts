@@ -4,7 +4,6 @@ import { defoultColors } from 'src/constants/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
     margin: 10,
     padding: 5,
@@ -15,10 +14,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderRadius: 20,
     width: '100%',
-    height: '40%',
+    paddingTop: 50,
+    paddingBottom: 30,
   },
 
   image: {
@@ -26,18 +25,9 @@ export const styles = StyleSheet.create({
     height: 300,
   },
 
-  imageBox: {
-    borderWidth: 2,
-    borderColor: defoultColors.background.button,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    justifyContent: 'center',
-    height: 150,
-  },
-
   tityImage: {
-    width: 110,
-    height: 110,
+    width: 140,
+    height: 140,
   },
 
   titleName: {
@@ -53,7 +43,7 @@ export const styles = StyleSheet.create({
 
   title: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 20,
     color: defoultColors.text.main,
   },
 

@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     backgroundColor: defoultColors.background.input,
     width: '80%',
     height: 50,
+    padding: 10,
   },
   inputActive: {
     borderWidth: 3,
@@ -25,6 +26,7 @@ export const styles = StyleSheet.create({
     height: 50,
     width: '80%',
     fontWeight: 'bold',
+    padding: 10,
   },
   labelError: {
     color: 'red',

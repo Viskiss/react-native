@@ -5,16 +5,16 @@ import type { IPokemon } from 'pokeapi-typescript';
 
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import type { MainTabParamList } from 'src/navigation/components/MainTab';
-import { useAppSelector } from 'src/redux/store';
 
 import { styles } from './Home.styles';
 
 type Props = NativeStackScreenProps<MainTabParamList, 'Home'>;
 
 const Home: React.FC<Props> = () => {
+  const { currentUser } = useCurrentUser();
   const [pokemon, setPokemon] = useState<IPokemon>();
-  const user = useAppSelector((state) => state.userStore.currentUser);
 
   useEffect(() => {
     (async () => {
@@ -41,7 +41,7 @@ const Home: React.FC<Props> = () => {
       ) : (
         <>
           <Text>
-            Welcome <Text style={styles.userName}>{user?.email}</Text>!
+            Welcome <Text style={styles.userName}>{currentUser?.email}</Text>!
           </Text>
           <View style={styles.rundomPokemon}>
             <Text style={styles.rundomPokemonTitle}>{pokemon?.name}</Text>

@@ -6,20 +6,25 @@ import type { SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
 import { ActivityIndicator, Image, Text, View } from 'react-native';
-import type { PokemonStackParamList } from 'src/navigation/components/PokemonListStack';
+
 import Button from 'src/ui/components/Button/Button';
 
 import { styles } from './Item.styles';
+
+export type PokemonStackParamList = {
+  ListPokemons: undefined;
+  SelectPokemon: undefined | {url: string};
+};
 
 type Props = {
   name: string;
   url: string;
 } & NativeStackScreenProps<PokemonStackParamList, 'ListPokemons'>;
 
-type ProfileScreenNavigationProp = Props['navigation'];
+type PokemonScreenNavigationProp = Props['navigation'];
 
 const Item: React.FC<Props> = (props) => {
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const navigation = useNavigation<PokemonScreenNavigationProp>();
 
   const [pokemon, setPokemon] = useState<IPokemon>();
 
