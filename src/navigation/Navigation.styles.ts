@@ -6,4 +6,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
   },
+  headerStyles: {
+    backgroundColor: 'transparent',
+    elevation: 0,
+  },
 });

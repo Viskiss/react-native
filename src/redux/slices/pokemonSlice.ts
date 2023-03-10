@@ -14,7 +14,7 @@ const pokemonSlice = createSlice({
     setPokemons: (state, { payload }) => {
       state.pokemons = [...state.pokemons, ...payload];
     },
-    reloadPokemonList: (state, { payload }) => {
+    refreshPokemonList: (state, { payload }) => {
       if (payload) {
         state.pokemons = [];
       }

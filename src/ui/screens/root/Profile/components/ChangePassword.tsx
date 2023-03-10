@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
@@ -47,6 +48,14 @@ const ChangeUserPassword: React.FC = () => {
         );
 
         await AsyncStorage.mergeItem('currentUser', JSON.stringify(user));
+
+        Notifier.showNotification({
+          title: 'Password is changed',
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'success',
+          },
+        });
       } catch (error) {
         console.log(error);
       }
@@ -58,7 +67,6 @@ const ChangeUserPassword: React.FC = () => {
       <View style={styles.container}>
         <View style={styles.changePasswordBox}>
           <Input
-            containerStyles={styles.inputContainerPassword}
             label="Enter your current Passsword"
             errors={
               formik.touched.currentPassword
@@ -67,22 +75,20 @@ const ChangeUserPassword: React.FC = () => {
             }
             touched={formik.touched.currentPassword || ''}
             onChangeText={formik.handleChange('currentPassword')}
-            {...formik.getFieldProps('currentPassword')}
+            value={formik.values.currentPassword}
           />
 
           <Input
-            containerStyles={styles.inputContainerPassword}
             label="Enter your new Password"
             errors={
               formik.touched.newPassword ? formik.errors.newPassword : undefined
             }
             touched={formik.touched.newPassword || ''}
             onChangeText={formik.handleChange('newPassword')}
-            {...formik.getFieldProps('newPassword')}
+            value={formik.values.newPassword}
           />
 
           <Input
-            containerStyles={styles.inputContainerPassword}
             label="Repeat your new Password"
             errors={
               formik.touched.repeatNewPassword
@@ -91,7 +97,7 @@ const ChangeUserPassword: React.FC = () => {
             }
             touched={formik.touched.repeatNewPassword || ''}
             onChangeText={formik.handleChange('repeatNewPassword')}
-            {...formik.getFieldProps('repeatNewPassword')}
+            value={formik.values.repeatNewPassword}
           />
 
           <Button onPress={formik.handleSubmit}>

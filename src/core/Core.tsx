@@ -7,32 +7,36 @@
 
 import React from 'react';
 import { Provider } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NotifierWrapper } from 'react-native-notifier';
 
-import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
+import { StatusBar } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import store from 'src/redux/store';
 import Navigation from 'src/navigation/Navigation';
 
-import { styles } from './Core.styles';
+import store from 'src/redux/store';
 
 function Core(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: Colors.lighter,
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Provider store={store}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-          <Navigation />
-      </Provider>
-    </SafeAreaView>
+    <SafeAreaProvider>
+        <Provider store={store}>
+
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor={backgroundStyle.backgroundColor}
+          />
+
+          <NotifierWrapper>
+            <Navigation />
+          </NotifierWrapper>
+
+        </Provider>
+    </SafeAreaProvider>
   );
 }
 

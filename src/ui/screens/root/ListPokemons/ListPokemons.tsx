@@ -28,16 +28,14 @@ const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
     (async () => {
       try {
         setLoadingData(true);
-        const limit = 20;
-        const offset = page > 1 ? page * 20 - 10 : 0;
-
-        const resourceList = await PokeAPI.Pokemon.list(limit, offset);
-
+        const resourceList = await PokeAPI.Pokemon.list(
+          20,
+          page > 1 ? page * 20 - 10 : 0,
+        );
         setPokemons(resourceList.results);
-
         setLoadingData(false);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [page, refreshing]);
@@ -53,15 +51,11 @@ const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
     (async () => {
       try {
         setLoadingData(true);
-
         const resourceList = await PokeAPI.Pokemon.list(20, 0);
-
         setPokemons(resourceList.results);
-        console.log(page);
-
         setLoadingData(false);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     })();
     setRefreshing(false);
@@ -74,6 +68,7 @@ const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
       ) : (
         <View>
           <FlatList
+            ListFooterComponent={<ActivityIndicator size="large" />}
             style={styles.container}
             data={pokemons}
             renderItem={({ item }) => (
@@ -93,7 +88,6 @@ const ListPokemons: React.FC<Props> = ({ navigation, route }) => {
           />
         </View>
       )}
-      {loadingData && <ActivityIndicator style={styles.loader} size="large" />}
     </View>
   );
 };

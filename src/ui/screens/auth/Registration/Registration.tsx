@@ -15,7 +15,7 @@ import Input from 'src/ui/components/Input/Input';
 import { styles } from './Registration.styles';
 
 const Registration: React.FC = () => {
-  const { setUser } = useCurrentUser();
+  const { setCurrentUser } = useCurrentUser();
 
   const findDubleEmail = async (email: string) => {
     const registeredEmail = await AsyncStorage.getItem(email);
@@ -39,19 +39,19 @@ const Registration: React.FC = () => {
     onSubmit: async (values) => {
       const { email, password } = values;
       const newUser = {
-        userEmail: email,
-        userPassword: password,
+        email,
+        password,
+        avatar: null,
       };
       try {
         if ((await findDubleEmail(email)) === false) {
-          await AsyncStorage.setItem('currentUser', JSON.stringify(values));
+          await AsyncStorage.setItem('currentUser', JSON.stringify(newUser));
 
           await AsyncStorage.setItem(
-            `${newUser.userEmail}`,
+            `${newUser.email}`,
             JSON.stringify(newUser),
           );
-
-          setUser(email, password);
+          setCurrentUser();
         }
       } catch (error) {
         console.log(error);
@@ -63,25 +63,22 @@ const Registration: React.FC = () => {
       <View style={styles.container}>
         <Text style={styles.screenTitle}>Registration</Text>
         <Input
-          containerStyles={styles.inputContainer}
           label="Enter your Email"
           errors={formik.touched.email ? formik.errors.email : undefined}
           touched={formik.touched.email || ''}
           onChangeText={formik.handleChange('email')}
-          {...formik.getFieldProps('email')}
+          value={formik.values.email}
         />
 
         <Input
-          containerStyles={styles.inputContainer}
           label="Enter your Password"
           errors={formik.touched.password ? formik.errors.password : undefined}
           touched={formik.touched.password || ''}
           onChangeText={formik.handleChange('password')}
-          {...formik.getFieldProps('password')}
+          value={formik.values.password}
         />
 
         <Input
-          containerStyles={styles.inputContainer}
           label="Repeat your Password"
           errors={
             formik.touched.repeatPassword
@@ -90,7 +87,7 @@ const Registration: React.FC = () => {
           }
           touched={formik.touched.repeatPassword || ''}
           onChangeText={formik.handleChange('repeatPassword')}
-          {...formik.getFieldProps('repeatPassword')}
+          value={formik.values.repeatPassword}
         />
         <Button onPress={formik.handleSubmit}>
           <Text style={styles.button}>Submit</Text>

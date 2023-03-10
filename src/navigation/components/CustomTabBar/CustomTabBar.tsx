@@ -8,13 +8,14 @@ import type {
   TabNavigationState,
 } from '@react-navigation/native';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { defoultColors } from 'src/constants/colors';
 
 import HomeLogo from 'src/ui/assets/Home.svg';
 import ListLogo from 'src/ui/assets/List.svg';
 import ProfileLogo from 'src/ui/assets/Profile.svg';
 
-import { styles } from './CustomTabBar.styles';
+import { getStyles } from './CustomTabBar.styles';
 
 type TabBarProps = {
   state: TabNavigationState<ParamListBase>;
@@ -23,6 +24,10 @@ type TabBarProps = {
 };
 
 const MyTabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }) => {
+  const insets = useSafeAreaInsets();
+
+  const styles = getStyles(insets.bottom);
+
   const getIcon = (label: string, fill: string) => {
     if (label === 'Home') {
       return <HomeLogo fill={fill} />;

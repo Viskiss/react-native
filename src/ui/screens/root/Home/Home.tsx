@@ -28,8 +28,8 @@ const Home: React.FC<Props> = () => {
         );
 
         setPokemon(ramdomPokemon.data);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, []);
@@ -46,11 +46,11 @@ const Home: React.FC<Props> = () => {
           <View style={styles.rundomPokemon}>
             <Text style={styles.rundomPokemonTitle}>{pokemon?.name}</Text>
             <Text style={styles.rundomPokemonTitle}>
-              Height:{' '}
+              Height:
               <Text style={styles.rundomPokemonNum}>{pokemon?.height}</Text>
             </Text>
             <Text style={styles.rundomPokemonTitle}>
-              Weight:{' '}
+              Weight:
               <Text style={styles.rundomPokemonNum}>{pokemon?.weight}</Text>
             </Text>
             <Image

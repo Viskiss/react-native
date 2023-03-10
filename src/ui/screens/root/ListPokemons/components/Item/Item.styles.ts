@@ -11,10 +11,12 @@ export const styles = StyleSheet.create({
     margin: 10,
     padding: 5,
   },
+
   tinyLogo: {
     width: 80,
     height: 80,
   },
+
   title: {
     fontWeight: 'bold',
     fontSize: 20,

@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { ImagePickerResponse } from 'react-native-image-picker';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 
-import { Image, Keyboard, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Image,
+  Keyboard,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -30,12 +37,12 @@ type ProfileScreenNavigationProp = Props['navigation'];
 
 const Profile: React.FC<Props> = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
-  const { currentUser, logOutUser, deleteUserProfile } = useCurrentUser();
-  const [photo, setPhoto] = useState<ImagePickerResponse>();
+
+  const { currentUser, logOutUser, deleteUserProfile, addUserAvatar } = useCurrentUser();
 
   const formik = useFormik({
     initialValues: {
-      email: currentUser?.email,
+      email: currentUser?.email || '',
     },
     validationSchema: Yup.object({
       email: fieldsValidation.email,
@@ -62,6 +69,14 @@ const Profile: React.FC<Props> = () => {
             'currentUser',
             JSON.stringify(newCurrentUser),
           );
+
+          Notifier.showNotification({
+            title: 'Email is changed',
+            Component: NotifierComponents.Alert,
+            componentProps: {
+              alertType: 'success',
+            },
+          });
         }
       } catch (error) {
         console.log(error);
@@ -75,10 +90,18 @@ const Profile: React.FC<Props> = () => {
         {currentUser && (
           <>
             <View style={styles.imageBox}>
-            <TouchableOpacity onPress={() => launchImageLibrary({ mediaType: 'photo' }, (e) => setPhoto(e))}>
-              {currentUser.avatar && <Image source={ { uri: photo as string }} />}
-              <Text>User Avatar</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.imageBox}
+                onPress={() => launchImageLibrary({ mediaType: 'photo' }, (e) => addUserAvatar(e))
+                }
+>
+                {currentUser.avatar && (
+                  <Image
+                    style={styles.avatar}
+                    source={{ uri: currentUser.avatar }}
+                  />
+                )}
+              </TouchableOpacity>
             </View>
             <View style={styles.infoBox}>
               <Input
@@ -87,26 +110,21 @@ const Profile: React.FC<Props> = () => {
                 errors={formik.touched.email ? formik.errors.email : undefined}
                 touched={formik.touched.email || ''}
                 onChangeText={formik.handleChange('email')}
-                {...formik.getFieldProps('email')}
+                value={formik.values.email}
               />
 
-              <Button
-                containerStyle={styles.button}
-                onPress={() => navigation.navigate('ChangeUserPassword')}
->
+              <Button onPress={formik.handleSubmit}>
+                <Text style={styles.title}>Submit</Text>
+              </Button>
+
+              <Button onPress={() => navigation.navigate('ChangeUserPassword')}>
                 <Text style={styles.title}>Change password</Text>
               </Button>
               <View style={styles.buttonsBox}>
-                <Button
-                  containerStyle={styles.button}
-                  onPress={() => logOutUser()}
->
+                <Button onPress={() => logOutUser()}>
                   <Text style={styles.title}>LogOut</Text>
                 </Button>
-                <Button
-                  containerStyle={styles.button}
-                  onPress={() => deleteUserProfile()}
->
+                <Button onPress={() => deleteUserProfile()}>
                   <Text style={styles.title}>Delete profile</Text>
                 </Button>
               </View>

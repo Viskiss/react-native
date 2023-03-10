@@ -6,6 +6,7 @@ import Profile from 'src/ui/screens/root/Profile';
 import ListPokemons from 'src/ui/screens/root/ListPokemons';
 
 import MyTabBar from './CustomTabBar/CustomTabBar';
+import { styles } from '../Navigation.styles';
 
 export type MainTabParamList = {
   Home: undefined;
@@ -18,6 +19,7 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 const MainTab: React.FC = () => {
   return (
     <Tab.Navigator
+      screenOptions={{ headerStyle: styles.headerStyles }}
       tabBar={(props) => <MyTabBar {...props} />}
       initialRouteName="Home"
 >

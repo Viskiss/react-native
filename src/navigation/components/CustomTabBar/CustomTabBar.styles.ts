@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { defoultColors } from 'src/constants/colors';
 
-export const styles = StyleSheet.create({
+export const getStyles = (paddingBottom: number) => StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     backgroundColor: defoultColors.background.button,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
+    paddingBottom,
   },
 
   item: {

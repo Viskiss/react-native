@@ -3,3 +3,13 @@ export type User = {
   password: string;
   avatar: string;
 };
+
+export type Asset = [
+  {
+    fileName: string;
+    fileSize: number;
+    height: number;
+    type: string;
+    uri: string;
+  },
+];

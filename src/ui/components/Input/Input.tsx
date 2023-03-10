@@ -1,7 +1,7 @@
 import type { FormikTouched } from 'formik';
 import React, { useState } from 'react';
 
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import { Text, TextInput, View } from 'react-native';
 
 import { styles } from './Input.styles';
@@ -15,13 +15,11 @@ type Props = {
   label?: string;
   errors?: string | undefined;
   touched?: FormikTouched<unknown>;
-};
+} & TextInputProps;
 
 const Input: React.FC<Props> = (props: Props) => {
   const {
-    onChangeText,
     containerStyles,
-    value,
     label,
     errors,
     touched,
@@ -32,12 +30,11 @@ const Input: React.FC<Props> = (props: Props) => {
   return (
     <View style={containerStyles || styles.container}>
       <TextInput
+        {...props}
         style={
           isFocused ? activeInputStyles || styles.inputActive
             : inputStyles || styles.input
         }
-        onChangeText={onChangeText}
-        value={value}
         onBlur={() => setIsFocused(false)}
         onFocus={() => setIsFocused(true)}
       />

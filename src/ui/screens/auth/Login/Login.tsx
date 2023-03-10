@@ -22,7 +22,7 @@ type ProfileScreenNavigationProp = Props['navigation'];
 
 const Login: React.FC<Props> = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
-  const { setUser } = useCurrentUser();
+  const { setCurrentUser } = useCurrentUser();
 
   const findRegisteredUser = async (email: string, password: string) => {
     const registeredUser = await AsyncStorage.getItem(email);
@@ -46,10 +46,8 @@ const Login: React.FC<Props> = () => {
         const { email, password } = values;
         const loginUser = await findRegisteredUser(email, password);
         if (loginUser) {
-          console.log(loginUser);
-          await AsyncStorage.setItem('currentUser', JSON.stringify(values));
-
-          setUser(email, password);
+          await AsyncStorage.setItem('currentUser', loginUser);
+          setCurrentUser();
         }
       } catch (error) {
         console.log(error);
@@ -62,21 +60,19 @@ const Login: React.FC<Props> = () => {
       <View style={styles.container}>
         <Text style={styles.screenTitle}>Login</Text>
         <Input
-          containerStyles={styles.inputContainer}
           label="Enter your Email"
           errors={formik.touched.email ? formik.errors.email : undefined}
           touched={formik.touched.email || ''}
           onChangeText={formik.handleChange('email')}
-          {...formik.getFieldProps('email')}
+          value={formik.values.email}
         />
 
         <Input
-          containerStyles={styles.inputContainer}
           label="Enter your Password"
           errors={formik.touched.password ? formik.errors.password : undefined}
           touched={formik.touched.password || ''}
           onChangeText={formik.handleChange('password')}
-          {...formik.getFieldProps('password')}
+          value={formik.values.password}
         />
         <Button onPress={formik.handleSubmit}>
           <Text style={styles.button}>Submit</Text>

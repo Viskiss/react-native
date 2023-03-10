@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ChangeUserPassword from 'src/ui/screens/root/Profile/components/ChangePassword';
-import SelectPokemon from 'src/ui/screens/root/ListPokemons/components/SelectPokemon';
+import SelectPokemon from 'src/ui/screens/root/SelectPokemon';
 import MainTab from './MainTab';
 
 export type MainStackParamList = {

@@ -18,6 +18,11 @@ const userSlice = createSlice({
         state.currentUser = null;
       }
     },
+    addUserAvatar: (state, { payload }) => {
+      if (state.currentUser) {
+        state.currentUser.avatar = payload;
+      }
+    },
   },
 });
 

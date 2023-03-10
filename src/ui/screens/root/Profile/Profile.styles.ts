@@ -10,6 +10,12 @@ export const styles = StyleSheet.create({
     padding: 5,
   },
 
+  avatar: {
+    height: 200,
+    width: 200,
+    backgroundColor: defoultColors.background.auth,
+  },
+
   infoBox: {
     backgroundColor: defoultColors.background.button,
     justifyContent: 'center',
@@ -19,7 +25,7 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     width: '100%',
     height: '100%',
-    paddingTop: 30,
+    paddingTop: 60,
   },
 
   changePasswordBox: {
@@ -45,6 +51,7 @@ export const styles = StyleSheet.create({
   },
 
   imageBox: {
+    alignItems: 'center',
     borderWidth: 2,
     borderColor: defoultColors.background.button,
     borderTopLeftRadius: 20,
@@ -73,7 +80,6 @@ export const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: defoultColors.background.input,
     borderRadius: 10,
-    marginBottom: 20,
   },
 
   inputContainer: {

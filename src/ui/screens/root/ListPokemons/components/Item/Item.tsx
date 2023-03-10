@@ -5,9 +5,7 @@ import type { IPokemon } from 'pokeapi-typescript';
 import type { SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
-import { ActivityIndicator, Image, Text, View } from 'react-native';
-
-import Button from 'src/ui/components/Button/Button';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './Item.styles';
 
@@ -37,8 +35,8 @@ const Item: React.FC<Props> = (props) => {
         setPokemon(
           result.data as unknown as SetStateAction<IPokemon | undefined>,
         );
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, []);
@@ -50,17 +48,19 @@ const Item: React.FC<Props> = (props) => {
       ) : (
         <>
           <Text style={styles.title}>{pokemon?.name}</Text>
-          <Button onPress={() => navigation.navigate('SelectPokemon', {
-            url: props.url,
-          })}
-          >
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SelectPokemon', {
+              url: props.url,
+            })
+            }
+>
             <Image
               style={styles.tinyLogo}
               source={{
                 uri: pokemon?.sprites.front_default,
               }}
             />
-          </Button>
+          </TouchableOpacity>
         </>
       )}
     </View>

@@ -11,7 +11,7 @@ export const usePokemon = () => {
   };
 
   const reloadPokemonList = (payload: string | number) => {
-    dispatch(pokemonSliceActions.reloadPokemonList(payload));
+    dispatch(pokemonSliceActions.refreshPokemonList(payload));
   };
 
   const pokemons = useAppSelector((state) => state.pokemonStore.pokemons);

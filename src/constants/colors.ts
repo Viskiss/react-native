@@ -10,5 +10,4 @@ export const defoultColors = {
     button: '#fc7878',
     input: '#f3f6f4',
   },
-
 };

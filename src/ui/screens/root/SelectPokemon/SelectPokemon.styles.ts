@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     margin: 10,
-    padding: 5,
   },
 
   infoBox: {

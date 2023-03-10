@@ -1,21 +1,20 @@
 import React from 'react';
 
-import type { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
 
 import { TouchableOpacity, View } from 'react-native';
 
 import { styles } from './Button.styles';
 
 type Props = {
-  onPress: ((event: GestureResponderEvent) => void) | undefined;
   containerStyle?: StyleProp<ViewStyle>;
-} & React.PropsWithChildren;
+} & React.PropsWithChildren & TouchableOpacityProps;
 
 const Button: React.FC<Props> = (props: Props) => {
   const { containerStyle, children } = props;
   return (
     <TouchableOpacity {...props}>
-      <View style={ containerStyle || styles.container}>
+      <View style={[styles.container, containerStyle]}>
         {children}
       </View>
     </TouchableOpacity>

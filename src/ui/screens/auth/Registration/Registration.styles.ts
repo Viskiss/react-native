@@ -31,12 +31,5 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     padding: 5,
-    backgroundColor: defoultColors.background.button,
-    borderRadius: 10,
-  },
-
-  inputContainer: {
-    width: '100%',
-    alignItems: 'center',
   },
 });

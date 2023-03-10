@@ -4,6 +4,8 @@ import { defoultColors } from 'src/constants/colors';
 export const styles = StyleSheet.create({
   container: {
     marginBottom: 15,
+    width: '100%',
+    alignItems: 'center',
   },
   input: {
     borderBottomRightRadius: 30,
