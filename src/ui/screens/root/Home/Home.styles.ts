@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { defoultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,11 +9,12 @@ export const styles = StyleSheet.create({
 
   userName: {
     fontWeight: 'bold',
+    color: defoultColors.text.error,
   },
 
   tinyLogo: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
   },
 
   rundomPokemon: {
@@ -21,14 +23,9 @@ export const styles = StyleSheet.create({
     margin: 15,
   },
 
-  rundomPokemonTitle: {
+  title: {
     fontWeight: 'bold',
     fontSize: 20,
-  },
-
-  rundomPokemonNum: {
-    color: '#344966',
-    fontWeight: 'bold',
-    fontSize: 15,
+    color: defoultColors.text.main,
   },
 });

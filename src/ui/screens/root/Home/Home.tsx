@@ -40,19 +40,20 @@ const Home: React.FC<Props> = () => {
         <ActivityIndicator />
       ) : (
         <>
-          <Text>
-            Welcome <Text style={styles.userName}>{currentUser?.email}</Text>!
-          </Text>
+          <Text style={styles.title}>Welcome!</Text>
+          <Text style={styles.userName}>{currentUser?.email}</Text>
+
           <View style={styles.rundomPokemon}>
-            <Text style={styles.rundomPokemonTitle}>{pokemon?.name}</Text>
-            <Text style={styles.rundomPokemonTitle}>
-              Height:
-              <Text style={styles.rundomPokemonNum}>{pokemon?.height}</Text>
+            <Text style={styles.title}>{pokemon?.name}</Text>
+
+            <Text style={styles.title}>
+              Height: {pokemon?.height}
             </Text>
-            <Text style={styles.rundomPokemonTitle}>
-              Weight:
-              <Text style={styles.rundomPokemonNum}>{pokemon?.weight}</Text>
+
+            <Text style={styles.title}>
+              Weight: {pokemon?.weight}
             </Text>
+
             <Image
               style={styles.tinyLogo}
               source={{
