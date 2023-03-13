@@ -10,11 +10,14 @@ import type { MainTabParamList } from 'src/navigation/components/MainTab';
 import pokemonBack from 'src/ui/assets/Back.jpeg';
 import Pokémon_logo from 'src/ui/assets/Pokémon_logo.svg';
 
+import { useTheme } from '@react-navigation/native';
+
 import { styles } from './Home.styles';
 
 type Props = NativeStackScreenProps<MainTabParamList, 'Home'>;
 
 const Home: React.FC<Props> = () => {
+  const { colors } = useTheme();
   const [pokemon, setPokemon] = useState<IPokemon>();
 
   useEffect(() => {

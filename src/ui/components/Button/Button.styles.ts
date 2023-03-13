@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     padding: 5,
-    backgroundColor: defaultColors.background.input,
+    backgroundColor: defaultColors.colors.input,
     borderRadius: 10,
   },
 });

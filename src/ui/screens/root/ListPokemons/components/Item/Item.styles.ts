@@ -6,9 +6,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 15,
     justifyContent: 'space-around',
-    backgroundColor: defaultColors.background.main,
     borderWidth: 2,
-    borderColor: defaultColors.background.yelow,
+    borderColor: defaultColors.colors.yelow,
     flexDirection: 'row',
     alignItems: 'center',
     margin: 10,
@@ -23,6 +22,6 @@ export const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: defaultColors.background.darkYelow,
+    color: defaultColors.colors.darkYelow,
   },
 });

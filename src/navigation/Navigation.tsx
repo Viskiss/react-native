@@ -24,15 +24,15 @@ const Navigation: React.FC = () => {
   useEffect(() => {
     (async () => {
       await setCurrentUser();
+      await setCurrentTheme();
       setIsAuthorized(true);
-      setCurrentTheme();
     })();
   }, [setIsAuthorized]);
 
   if (!isAuthorized) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator color={defaultColors.background.main} />
+        <ActivityIndicator color={defaultColors.colors.main} />
       </View>
     );
   }

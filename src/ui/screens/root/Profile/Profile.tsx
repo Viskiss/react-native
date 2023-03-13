@@ -14,7 +14,7 @@ import {
   View,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { fieldsValidation } from 'src/utils/validationFields';
@@ -40,10 +40,17 @@ type Props = NativeStackScreenProps<UserProfileStackParamList, 'Profile'>;
 type ProfileScreenNavigationProp = Props['navigation'];
 
 const Profile: React.FC<Props> = () => {
+  const { colors } = useTheme();
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
-  const { currentUser, logOutUser, deleteUserProfile, addUserAvatar, changeTheme, theme } =
-    useCurrentUser();
+  const {
+    currentUser,
+    logOutUser,
+    deleteUserProfile,
+    addUserAvatar,
+    changeTheme,
+    theme,
+  } = useCurrentUser();
 
   const formik = useFormik({
     initialValues: {
@@ -96,12 +103,15 @@ const Profile: React.FC<Props> = () => {
       <View style={styles.container}>
         {currentUser && (
           <>
-            <View style={styles.imageBox}>
-              <TouchableOpacity style={styles.theme} onPress={() => changeTheme()}>
-              {theme === 'light' ? <LightTheme /> : <DarkTheme />}
+            <View style={[styles.imageBox, { borderColor: colors.primary }]}>
+              <TouchableOpacity
+                style={styles.theme}
+                onPress={() => changeTheme()}
+>
+                {theme === 'light' ? <LightTheme /> : <DarkTheme />}
               </TouchableOpacity>
               <TouchableOpacity
-              style={styles.avatarButton}
+                style={[styles.avatarButton, { backgroundColor: colors.card }]}
                 onPress={() => launchImageLibrary({ mediaType: 'photo' }, (e) => addUserAvatar(e))
                 }
 >
@@ -114,7 +124,7 @@ const Profile: React.FC<Props> = () => {
                 />
               )}
             </View>
-            <View style={styles.infoBox}>
+            <View style={[styles.infoBox, { backgroundColor: colors.primary }]}>
               <Input
                 containerStyles={styles.inputContainer}
                 label="Your Email"

@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
   },
 
   infoBox: {
-    backgroundColor: defaultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -34,17 +33,15 @@ export const styles = StyleSheet.create({
   titleName: {
     position: 'absolute',
     top: -35,
-    backgroundColor: defaultColors.background.input,
+    backgroundColor: defaultColors.text.main,
     borderRadius: 20,
     fontWeight: 'bold',
     fontSize: 35,
-    color: defaultColors.text.main,
     padding: 10,
   },
 
   title: {
     fontWeight: 'bold',
     fontSize: 20,
-    color: defaultColors.background.yelow,
   },
 });

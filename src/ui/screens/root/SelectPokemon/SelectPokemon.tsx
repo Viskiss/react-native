@@ -5,6 +5,7 @@ import type { IPokemon } from 'pokeapi-typescript';
 
 import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native';
 
+import { useTheme } from '@react-navigation/native';
 import type { PokemonStackParamList } from '../ListPokemons/components/Item/Item';
 
 import { styles } from './SelectPokemon.styles';
@@ -12,6 +13,7 @@ import { styles } from './SelectPokemon.styles';
 type Props = NativeStackScreenProps<PokemonStackParamList, 'SelectPokemon'>;
 
 const SelectPokemon: React.FC<Props> = ({ route }) => {
+  const { colors } = useTheme();
   const url = route.params?.url;
   const [pokemon, setPokemon] = useState<IPokemon>();
 
@@ -45,29 +47,35 @@ const SelectPokemon: React.FC<Props> = ({ route }) => {
         <ActivityIndicator />
       ) : (
         <FlatList
-        style={styles.container}
+          style={styles.container}
           ListHeaderComponent={
             (<>
               <View style={styles.imageBox}>
                 <Image
-                style={styles.image}
-                source={{
-                  uri: pokemon?.sprites.front_default,
-                }}
-/>
+                  style={styles.image}
+                  source={{
+                    uri: pokemon?.sprites.front_default,
+                  }}
+                />
               </View>
 
-              <View style={styles.infoBox}>
-                <Text style={styles.titleName}>{pokemon?.name}</Text>
-                <Text style={styles.title}>Height :{pokemon?.height}</Text>
-                <Text style={styles.title}>Weight :{pokemon?.weight}</Text>
-                <Text style={styles.title}>
+              <View style={[styles.infoBox, { backgroundColor: colors.primary }]}>
+                <Text style={[styles.titleName, { color: colors.card }]}>
+                  {pokemon?.name}
+                </Text>
+                <Text style={[styles.title, { color: colors.border }]}>
+                  Height :{pokemon?.height}
+                </Text>
+                <Text style={[styles.title, { color: colors.border }]}>
+                  Weight :{pokemon?.weight}
+                </Text>
+                <Text style={[styles.title, { color: colors.border }]}>
                   Type: {pokemon?.types[0].type.name}
                 </Text>
-                <Text style={styles.title}>
+                <Text style={[styles.title, { color: colors.border }]}>
                   Ability-1: {pokemon?.abilities[0].ability.name}
                 </Text>
-                <Text style={styles.title}>
+                <Text style={[styles.title, { color: colors.border }]}>
                   Ability-2: {pokemon?.abilities[1].ability.name}
                 </Text>
               </View>

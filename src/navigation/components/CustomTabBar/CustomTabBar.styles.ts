@@ -7,7 +7,7 @@ export const getStyles = (paddingBottom: number) => StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: defaultColors.background.main,
+    backgroundColor: defaultColors.colors.main,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     paddingBottom,
@@ -24,7 +24,7 @@ export const getStyles = (paddingBottom: number) => StyleSheet.create({
   },
 
   textActive: {
-    color: defaultColors.background.yelow,
+    color: defaultColors.colors.yelow,
     fontWeight: 'bold',
   },
 });

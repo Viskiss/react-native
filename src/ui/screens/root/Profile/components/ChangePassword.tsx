@@ -12,9 +12,11 @@ import { fieldsValidation } from 'src/utils/validationFields';
 import Input from 'src/ui/components/Input/Input';
 import Button from 'src/ui/components/Button/Button';
 
+import { useTheme } from '@react-navigation/native';
 import { styles } from '../Profile.styles';
 
 const ChangeUserPassword: React.FC = () => {
+  const { colors } = useTheme();
   const { currentUser } = useCurrentUser();
 
   const formik = useFormik({
@@ -65,7 +67,7 @@ const ChangeUserPassword: React.FC = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
-        <View style={styles.changePasswordBox}>
+        <View style={[styles.changePasswordBox, { backgroundColor: colors.primary }]}>
           <Input
             label="Enter your current Passsword"
             errors={
@@ -101,7 +103,7 @@ const ChangeUserPassword: React.FC = () => {
           />
 
           <Button onPress={formik.handleSubmit}>
-            <Text style={styles.button}>Submit</Text>
+            <Text style={styles.title}>Submit</Text>
           </Button>
         </View>
       </View>

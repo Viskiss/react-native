@@ -13,9 +13,9 @@ export const styles = StyleSheet.create({
     borderBottomLeftRadius: 5,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 5,
-    borderColor: defaultColors.background.yelow,
+    borderColor: defaultColors.colors.yelow,
     borderWidth: 2,
-    backgroundColor: defaultColors.background.input,
+    backgroundColor: defaultColors.colors.input,
     width: '80%',
     height: 50,
     padding: 10,
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
 
   inputActive: {
-    backgroundColor: defaultColors.background.input,
+    backgroundColor: defaultColors.colors.input,
   },
 
   labelError: {

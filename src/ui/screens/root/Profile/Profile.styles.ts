@@ -21,12 +21,10 @@ export const styles = StyleSheet.create({
   avatar: {
     height: 200,
     width: 200,
-    backgroundColor: defaultColors.background.main,
   },
 
   avatarButton: {
     position: 'absolute',
-    backgroundColor: defaultColors.background.darkYelow,
     zIndex: 2,
     borderRadius: 20,
     padding: 7,
@@ -36,7 +34,6 @@ export const styles = StyleSheet.create({
   },
 
   infoBox: {
-    backgroundColor: defaultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -46,7 +43,6 @@ export const styles = StyleSheet.create({
   },
 
   changePasswordBox: {
-    backgroundColor: defaultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -66,7 +62,6 @@ export const styles = StyleSheet.create({
   imageBox: {
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: defaultColors.background.dark,
     justifyContent: 'center',
     height: 210,
     width: '55%',
@@ -82,15 +77,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 35,
     color: defaultColors.text.main,
-  },
-
-  button: {
-    color: defaultColors.text.main,
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 5,
-    backgroundColor: defaultColors.background.input,
-    borderRadius: 10,
   },
 
   inputContainer: {
