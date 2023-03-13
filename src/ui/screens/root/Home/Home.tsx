@@ -5,15 +5,16 @@ import type { IPokemon } from 'pokeapi-typescript';
 
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 
-import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import type { MainTabParamList } from 'src/navigation/components/MainTab';
+
+import pokemonBack from 'src/ui/assets/Back.jpeg';
+import Pokémon_logo from 'src/ui/assets/Pokémon_logo.svg';
 
 import { styles } from './Home.styles';
 
 type Props = NativeStackScreenProps<MainTabParamList, 'Home'>;
 
 const Home: React.FC<Props> = () => {
-  const { currentUser } = useCurrentUser();
   const [pokemon, setPokemon] = useState<IPokemon>();
 
   useEffect(() => {
@@ -40,26 +41,35 @@ const Home: React.FC<Props> = () => {
         <ActivityIndicator />
       ) : (
         <>
-          <Text style={styles.title}>Welcome!</Text>
-          <Text style={styles.userName}>{currentUser?.email}</Text>
-
+        <Pokémon_logo />
           <View style={styles.rundomPokemon}>
-            <Text style={styles.title}>{pokemon?.name}</Text>
+            <View>
+              <Image style={styles.pokemonBackground} source={pokemonBack} />
+              <Image
+                style={styles.tinyLogo}
+                source={{
+                  uri: pokemon?.sprites.front_default,
+                }}
+              />
+            </View>
+
+            <Text style={styles.name}>{pokemon?.name.toLocaleUpperCase()}</Text>
+
+            <Text style={styles.title}>Height: {pokemon?.height}</Text>
+
+            <Text style={styles.title}>Weight: {pokemon?.weight}</Text>
 
             <Text style={styles.title}>
-              Height: {pokemon?.height}
+              Type: {pokemon?.types[0].type.name}
             </Text>
 
             <Text style={styles.title}>
-              Weight: {pokemon?.weight}
+              Ability-1: {pokemon?.abilities[0].ability.name}
             </Text>
 
-            <Image
-              style={styles.tinyLogo}
-              source={{
-                uri: pokemon?.sprites.front_default,
-              }}
-            />
+            <Text style={styles.title}>
+              Ability-2: {pokemon?.abilities[1].ability.name}
+            </Text>
           </View>
         </>
       )}

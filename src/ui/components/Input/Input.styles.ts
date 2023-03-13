@@ -7,33 +7,31 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+
   input: {
     borderBottomRightRadius: 30,
     borderBottomLeftRadius: 5,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 5,
+    borderColor: defoultColors.background.yelow,
+    borderWidth: 2,
     backgroundColor: defoultColors.background.input,
     width: '80%',
     height: 50,
     padding: 10,
-  },
-  inputActive: {
-    borderWidth: 3,
-    borderColor: defoultColors.text.main,
-    borderBottomRightRadius: 30,
-    borderBottomLeftRadius: 5,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 5,
-    backgroundColor: defoultColors.background.input,
-    height: 50,
-    width: '80%',
     fontWeight: 'bold',
-    padding: 10,
+    fontSize: 15,
   },
+
+  inputActive: {
+    backgroundColor: defoultColors.background.input,
+  },
+
   labelError: {
     color: 'red',
     fontWeight: 'bold',
   },
+
   label: {
     color: defoultColors.text.main,
     fontWeight: 'bold',

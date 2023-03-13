@@ -32,8 +32,8 @@ const Input: React.FC<Props> = (props: Props) => {
       <TextInput
         {...props}
         style={
-          isFocused ? activeInputStyles || styles.inputActive
-            : inputStyles || styles.input
+          isFocused ? [[styles.input, styles.inputActive], activeInputStyles]
+            : [styles.input, inputStyles]
         }
         onBlur={() => setIsFocused(false)}
         onFocus={() => setIsFocused(true)}

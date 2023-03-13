@@ -40,23 +40,36 @@ const SelectPokemon: React.FC<Props> = ({ route }) => {
   }, [pokemon]);
 
   return (
-    <View style={styles.container}>
+    <View>
       {!pokemon ? (
         <ActivityIndicator />
       ) : (
         <FlatList
+        style={styles.container}
           ListHeaderComponent={
             (<>
-              <Image
+              <View style={styles.imageBox}>
+                <Image
                 style={styles.image}
                 source={{
                   uri: pokemon?.sprites.front_default,
                 }}
-              />
+/>
+              </View>
+
               <View style={styles.infoBox}>
                 <Text style={styles.titleName}>{pokemon?.name}</Text>
                 <Text style={styles.title}>Height :{pokemon?.height}</Text>
                 <Text style={styles.title}>Weight :{pokemon?.weight}</Text>
+                <Text style={styles.title}>
+                  Type: {pokemon?.types[0].type.name}
+                </Text>
+                <Text style={styles.title}>
+                  Ability-1: {pokemon?.abilities[0].ability.name}
+                </Text>
+                <Text style={styles.title}>
+                  Ability-2: {pokemon?.abilities[1].ability.name}
+                </Text>
               </View>
              </>)
           }

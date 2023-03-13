@@ -3,7 +3,7 @@ import { defoultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: defoultColors.background.auth,
+    backgroundColor: defoultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 100,
@@ -20,14 +20,14 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     fontSize: 35,
-    color: defoultColors.text.main,
-    backgroundColor: defoultColors.background.input,
+    color: defoultColors.background.yelow,
+    backgroundColor: defoultColors.background.dark,
     padding: 10,
     borderRadius: 20,
   },
 
   button: {
-    color: defoultColors.text.main,
+    color: defoultColors.background.darkYelow,
     fontSize: 20,
     fontWeight: 'bold',
     padding: 5,

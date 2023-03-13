@@ -1,11 +1,14 @@
 import { StyleSheet } from 'react-native';
+import { defoultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderRadius: 15,
     justifyContent: 'space-around',
-    backgroundColor: '#d0cece',
+    backgroundColor: defoultColors.background.main,
+    borderWidth: 2,
+    borderColor: defoultColors.background.yelow,
     flexDirection: 'row',
     alignItems: 'center',
     margin: 10,
@@ -13,12 +16,13 @@ export const styles = StyleSheet.create({
   },
 
   tinyLogo: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
   },
 
   title: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 25,
+    color: defoultColors.background.darkYelow,
   },
 });

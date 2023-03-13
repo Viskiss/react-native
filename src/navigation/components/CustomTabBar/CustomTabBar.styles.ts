@@ -7,7 +7,7 @@ export const getStyles = (paddingBottom: number) => StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: defoultColors.background.button,
+    backgroundColor: defoultColors.background.main,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     paddingBottom,
@@ -24,7 +24,7 @@ export const getStyles = (paddingBottom: number) => StyleSheet.create({
   },
 
   textActive: {
-    color: defoultColors.text.opacity,
+    color: defoultColors.background.yelow,
     fontWeight: 'bold',
   },
 });

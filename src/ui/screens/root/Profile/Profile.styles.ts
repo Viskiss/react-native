@@ -14,12 +14,12 @@ export const styles = StyleSheet.create({
   avatar: {
     height: 200,
     width: 200,
-    backgroundColor: defoultColors.background.auth,
+    backgroundColor: defoultColors.background.main,
   },
 
   avatarButton: {
     position: 'absolute',
-    backgroundColor: defoultColors.background.button,
+    backgroundColor: defoultColors.background.darkYelow,
     zIndex: 2,
     borderRadius: 20,
     padding: 7,
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
 
   infoBox: {
-    backgroundColor: defoultColors.background.button,
+    backgroundColor: defoultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   },
 
   changePasswordBox: {
-    backgroundColor: defoultColors.background.button,
+    backgroundColor: defoultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   imageBox: {
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: defoultColors.background.button,
+    borderColor: defoultColors.background.dark,
     justifyContent: 'center',
     height: 210,
     width: '55%',

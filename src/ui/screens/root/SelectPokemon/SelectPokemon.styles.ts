@@ -3,20 +3,22 @@ import { defoultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
     margin: 10,
   },
 
   infoBox: {
-    backgroundColor: defoultColors.background.button,
+    backgroundColor: defoultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
     borderRadius: 20,
-    width: '100%',
     paddingTop: 50,
     paddingBottom: 30,
+  },
+
+  imageBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   image: {
@@ -43,12 +45,6 @@ export const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 20,
-    color: defoultColors.text.main,
-  },
-
-  text: {
-    fontWeight: 'bold',
-    fontSize: 35,
-    color: defoultColors.text.main,
+    color: defoultColors.background.yelow,
   },
 });

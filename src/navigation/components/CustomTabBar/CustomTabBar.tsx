@@ -72,7 +72,7 @@ const MyTabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }) => 
                 label,
                 !isFocused
                   ? defoultColors.text.main
-                  : defoultColors.text.opacity,
+                  : defoultColors.background.yelow,
               )}
 
             <Text style={!isFocused ? styles.text : styles.textActive}>

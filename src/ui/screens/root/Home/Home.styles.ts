@@ -7,20 +7,36 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  pokemonBackground: {
+    backgroundColor: 'red',
+    width: 350,
+    borderRadius: 20,
+  },
+
   userName: {
     fontWeight: 'bold',
     color: defoultColors.text.error,
   },
 
   tinyLogo: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 
   rundomPokemon: {
     justifyContent: 'center',
     alignItems: 'center',
     margin: 15,
+  },
+
+  name: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    color: defoultColors.text.main,
+    marginBottom: 20,
   },
 
   title: {
