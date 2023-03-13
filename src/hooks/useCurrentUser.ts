@@ -58,6 +58,11 @@ export const useCurrentUser = () => {
         JSON.stringify(user),
       );
 
+      await AsyncStorage.mergeItem(
+        'currentUser',
+        JSON.stringify(user),
+      );
+
       dispatch(userSliceActions.addUserAvatar(uri[0].uri));
     } catch (error) {
       console.log(error);
