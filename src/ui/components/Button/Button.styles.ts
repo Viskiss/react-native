@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
     fontSize: 20,
     fontWeight: 'bold',
     padding: 5,
-    backgroundColor: defoultColors.background.input,
+    backgroundColor: defaultColors.background.input,
     borderRadius: 10,
   },
 });

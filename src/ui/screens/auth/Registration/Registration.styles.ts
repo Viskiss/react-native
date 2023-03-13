@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: defoultColors.background.main,
+    backgroundColor: defaultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 100,
@@ -20,14 +20,14 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     fontSize: 35,
-    color: defoultColors.background.yelow,
-    backgroundColor: defoultColors.background.dark,
+    color: defaultColors.background.yelow,
+    backgroundColor: defaultColors.background.dark,
     padding: 10,
     borderRadius: 20,
   },
 
   button: {
-    color: defoultColors.background.darkYelow,
+    color: defaultColors.background.darkYelow,
     fontSize: 20,
     fontWeight: 'bold',
     padding: 5,

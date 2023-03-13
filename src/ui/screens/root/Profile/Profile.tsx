@@ -25,6 +25,8 @@ import Button from 'src/ui/components/Button/Button';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Camera from 'src/ui/assets/Camera.svg';
+import LightTheme from 'src/ui/assets/lightTheme.svg';
+import DarkTheme from 'src/ui/assets/darkTheme.svg';
 
 import { styles } from './Profile.styles';
 
@@ -40,7 +42,7 @@ type ProfileScreenNavigationProp = Props['navigation'];
 const Profile: React.FC<Props> = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
-  const { currentUser, logOutUser, deleteUserProfile, addUserAvatar } =
+  const { currentUser, logOutUser, deleteUserProfile, addUserAvatar, changeTheme, theme } =
     useCurrentUser();
 
   const formik = useFormik({
@@ -87,12 +89,17 @@ const Profile: React.FC<Props> = () => {
     },
   });
 
+  console.log(theme);
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         {currentUser && (
           <>
             <View style={styles.imageBox}>
+              <TouchableOpacity style={styles.theme} onPress={() => changeTheme()}>
+              {theme === 'light' ? <LightTheme /> : <DarkTheme />}
+              </TouchableOpacity>
               <TouchableOpacity
               style={styles.avatarButton}
                 onPress={() => launchImageLibrary({ mediaType: 'photo' }, (e) => addUserAvatar(e))

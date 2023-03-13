@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
 
   infoBox: {
-    backgroundColor: defoultColors.background.main,
+    backgroundColor: defaultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -34,17 +34,17 @@ export const styles = StyleSheet.create({
   titleName: {
     position: 'absolute',
     top: -35,
-    backgroundColor: defoultColors.background.input,
+    backgroundColor: defaultColors.background.input,
     borderRadius: 20,
     fontWeight: 'bold',
     fontSize: 35,
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
     padding: 10,
   },
 
   title: {
     fontWeight: 'bold',
     fontSize: 20,
-    color: defoultColors.background.yelow,
+    color: defaultColors.background.yelow,
   },
 });

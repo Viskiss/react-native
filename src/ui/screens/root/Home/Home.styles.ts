@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
 
   userName: {
     fontWeight: 'bold',
-    color: defoultColors.text.error,
+    color: defaultColors.text.error,
   },
 
   tinyLogo: {
@@ -29,19 +29,20 @@ export const styles = StyleSheet.create({
   rundomPokemon: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 50,
     margin: 15,
   },
 
   name: {
     fontWeight: 'bold',
     fontSize: 30,
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
     marginBottom: 20,
   },
 
   title: {
     fontWeight: 'bold',
     fontSize: 20,
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
   },
 });

@@ -5,7 +5,7 @@ import { ActivityIndicator, View } from 'react-native';
 
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
-import { defoultColors } from 'src/constants/colors';
+import { darkTheme, defaultColors } from 'src/constants/colors';
 import LoginStack from './components/LoginStack';
 import MainTabScreen from './components/MainTabScreen';
 
@@ -17,7 +17,7 @@ export type RootStackParamList = {
 };
 
 const Navigation: React.FC = () => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
+  const { currentUser, setCurrentUser, setCurrentTheme, theme } = useCurrentUser();
 
   const [isAuthorized, setIsAuthorized] = useState(false);
 
@@ -25,19 +25,20 @@ const Navigation: React.FC = () => {
     (async () => {
       await setCurrentUser();
       setIsAuthorized(true);
+      setCurrentTheme();
     })();
   }, [setIsAuthorized]);
 
   if (!isAuthorized) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator color={defoultColors.background.auth} />
+        <ActivityIndicator color={defaultColors.background.main} />
       </View>
     );
   }
 
   return (
-      <NavigationContainer>
+      <NavigationContainer theme={theme === 'dark' ? darkTheme : defaultColors}>
         {!currentUser ? <LoginStack /> : <MainTabScreen />}
       </NavigationContainer>
 

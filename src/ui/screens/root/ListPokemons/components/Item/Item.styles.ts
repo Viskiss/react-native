@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderRadius: 15,
     justifyContent: 'space-around',
-    backgroundColor: defoultColors.background.main,
+    backgroundColor: defaultColors.background.main,
     borderWidth: 2,
-    borderColor: defoultColors.background.yelow,
+    borderColor: defaultColors.background.yelow,
     flexDirection: 'row',
     alignItems: 'center',
     margin: 10,
@@ -23,6 +23,6 @@ export const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: defoultColors.background.darkYelow,
+    color: defaultColors.background.darkYelow,
   },
 });

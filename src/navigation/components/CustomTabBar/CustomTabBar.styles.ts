@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const getStyles = (paddingBottom: number) => StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export const getStyles = (paddingBottom: number) => StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: defoultColors.background.main,
+    backgroundColor: defaultColors.background.main,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     paddingBottom,
@@ -19,12 +19,12 @@ export const getStyles = (paddingBottom: number) => StyleSheet.create({
   },
 
   text: {
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
     fontWeight: 'bold',
   },
 
   textActive: {
-    color: defoultColors.background.yelow,
+    color: defaultColors.background.yelow,
     fontWeight: 'bold',
   },
 });

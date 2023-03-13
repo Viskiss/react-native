@@ -9,7 +9,7 @@ import type {
 } from '@react-navigation/native';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 import HomeLogo from 'src/ui/assets/Home.svg';
 import ListLogo from 'src/ui/assets/List.svg';
@@ -71,8 +71,8 @@ const MyTabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation }) => 
               {getIcon(
                 label,
                 !isFocused
-                  ? defoultColors.text.main
-                  : defoultColors.background.yelow,
+                  ? defaultColors.text.main
+                  : defaultColors.background.yelow,
               )}
 
             <Text style={!isFocused ? styles.text : styles.textActive}>

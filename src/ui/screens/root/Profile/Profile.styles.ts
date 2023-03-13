@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,15 +11,22 @@ export const styles = StyleSheet.create({
     padding: 5,
   },
 
+  theme: {
+    position: 'absolute',
+    zIndex: 3,
+    top: -20,
+    left: -20,
+  },
+
   avatar: {
     height: 200,
     width: 200,
-    backgroundColor: defoultColors.background.main,
+    backgroundColor: defaultColors.background.main,
   },
 
   avatarButton: {
     position: 'absolute',
-    backgroundColor: defoultColors.background.darkYelow,
+    backgroundColor: defaultColors.background.darkYelow,
     zIndex: 2,
     borderRadius: 20,
     padding: 7,
@@ -29,7 +36,7 @@ export const styles = StyleSheet.create({
   },
 
   infoBox: {
-    backgroundColor: defoultColors.background.main,
+    backgroundColor: defaultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -39,7 +46,7 @@ export const styles = StyleSheet.create({
   },
 
   changePasswordBox: {
-    backgroundColor: defoultColors.background.main,
+    backgroundColor: defaultColors.background.main,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
@@ -59,7 +66,7 @@ export const styles = StyleSheet.create({
   imageBox: {
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: defoultColors.background.dark,
+    borderColor: defaultColors.background.dark,
     justifyContent: 'center',
     height: 210,
     width: '55%',
@@ -68,21 +75,21 @@ export const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
   },
 
   text: {
     fontWeight: 'bold',
     fontSize: 35,
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
   },
 
   button: {
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
     fontSize: 20,
     fontWeight: 'bold',
     padding: 5,
-    backgroundColor: defoultColors.background.input,
+    backgroundColor: defaultColors.background.input,
     borderRadius: 10,
   },
 

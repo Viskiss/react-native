@@ -69,13 +69,40 @@ export const useCurrentUser = () => {
     }
   };
 
+  const changeTheme = async () => {
+    try {
+      if (theme === 'light') {
+        await AsyncStorage.setItem('theme', 'dark');
+        dispatch(userSliceActions.changeTheme('dark'));
+      } else {
+        await AsyncStorage.setItem('theme', 'light');
+        dispatch(userSliceActions.changeTheme('light'));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setCurrentTheme = async () => {
+    try {
+      const theme = await AsyncStorage.getItem('theme');
+      dispatch(userSliceActions.changeTheme(theme));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const currentUser = useAppSelector((state) => state.userStore.currentUser);
+  const theme = useAppSelector((state) => state.userStore.theme);
 
   return {
     setCurrentUser,
     logOutUser,
     deleteUserProfile,
     addUserAvatar,
+    changeTheme,
+    setCurrentTheme,
     currentUser,
+    theme,
   };
 };

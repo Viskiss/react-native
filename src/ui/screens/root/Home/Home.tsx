@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { IPokemon } from 'pokeapi-typescript';
 
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 
 import type { MainTabParamList } from 'src/navigation/components/MainTab';
 
@@ -18,22 +18,24 @@ const Home: React.FC<Props> = () => {
   const [pokemon, setPokemon] = useState<IPokemon>();
 
   useEffect(() => {
-    (async () => {
-      try {
-        const ramdomPokemonId = -Math.round(
-          1 - 0.5 + Math.random() * (1 - 100 + 1),
-        );
-
-        const ramdomPokemon = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${ramdomPokemonId}/`,
-        );
-
-        setPokemon(ramdomPokemon.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    getRundomPokemon();
   }, []);
+
+  const getRundomPokemon = async () => {
+    try {
+      const ramdomPokemonId = -Math.round(
+        1 - 0.5 + Math.random() * (1 - 100 + 1),
+      );
+
+      const ramdomPokemon = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${ramdomPokemonId}/`,
+      );
+
+      setPokemon(ramdomPokemon.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -41,7 +43,9 @@ const Home: React.FC<Props> = () => {
         <ActivityIndicator />
       ) : (
         <>
+        <TouchableOpacity onPressOut={() => getRundomPokemon()}>
         <Pokémon_logo />
+        </TouchableOpacity>
           <View style={styles.rundomPokemon}>
             <View>
               <Image style={styles.pokemonBackground} source={pokemonBack} />
@@ -61,14 +65,6 @@ const Home: React.FC<Props> = () => {
 
             <Text style={styles.title}>
               Type: {pokemon?.types[0].type.name}
-            </Text>
-
-            <Text style={styles.title}>
-              Ability-1: {pokemon?.abilities[0].ability.name}
-            </Text>
-
-            <Text style={styles.title}>
-              Ability-2: {pokemon?.abilities[1].ability.name}
             </Text>
           </View>
         </>

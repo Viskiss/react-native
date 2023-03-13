@@ -4,6 +4,7 @@ import type { User } from 'src/types/user';
 
 const initialState = () => ({
   currentUser: null as User | null,
+  theme: 'light',
 });
 
 const userSlice = createSlice({
@@ -22,6 +23,9 @@ const userSlice = createSlice({
       if (state.currentUser) {
         state.currentUser.avatar = payload;
       }
+    },
+    changeTheme: (state, { payload }) => {
+      state.theme = payload;
     },
   },
 });

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { defoultColors } from 'src/constants/colors';
+import { defaultColors } from 'src/constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,9 +13,9 @@ export const styles = StyleSheet.create({
     borderBottomLeftRadius: 5,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 5,
-    borderColor: defoultColors.background.yelow,
+    borderColor: defaultColors.background.yelow,
     borderWidth: 2,
-    backgroundColor: defoultColors.background.input,
+    backgroundColor: defaultColors.background.input,
     width: '80%',
     height: 50,
     padding: 10,
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
 
   inputActive: {
-    backgroundColor: defoultColors.background.input,
+    backgroundColor: defaultColors.background.input,
   },
 
   labelError: {
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   },
 
   label: {
-    color: defoultColors.text.main,
+    color: defaultColors.text.main,
     fontWeight: 'bold',
   },
 });
