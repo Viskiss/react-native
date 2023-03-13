@@ -24,6 +24,8 @@ import Button from 'src/ui/components/Button/Button';
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import Camera from 'src/ui/assets/Camera.svg';
+
 import { styles } from './Profile.styles';
 
 type UserProfileStackParamList = {
@@ -38,7 +40,8 @@ type ProfileScreenNavigationProp = Props['navigation'];
 const Profile: React.FC<Props> = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
-  const { currentUser, logOutUser, deleteUserProfile, addUserAvatar } = useCurrentUser();
+  const { currentUser, logOutUser, deleteUserProfile, addUserAvatar } =
+    useCurrentUser();
 
   const formik = useFormik({
     initialValues: {
@@ -51,7 +54,7 @@ const Profile: React.FC<Props> = () => {
       try {
         const { email } = values;
         if (email === currentUser?.email) {
-          formik.setErrors({ email: 'Need another email' });
+          formik.setErrors({ email: 'Email not changed' });
         } else {
           const newCurrentUser = {
             email,
@@ -91,17 +94,18 @@ const Profile: React.FC<Props> = () => {
           <>
             <View style={styles.imageBox}>
               <TouchableOpacity
-                style={styles.imageBox}
+              style={styles.avatarButton}
                 onPress={() => launchImageLibrary({ mediaType: 'photo' }, (e) => addUserAvatar(e))
                 }
 >
-                {currentUser.avatar && (
-                  <Image
-                    style={styles.avatar}
-                    source={{ uri: currentUser.avatar }}
-                  />
-                )}
+                <Camera />
               </TouchableOpacity>
+              {currentUser.avatar && (
+                <Image
+                  style={styles.avatar}
+                  source={{ uri: currentUser.avatar }}
+                />
+              )}
             </View>
             <View style={styles.infoBox}>
               <Input
@@ -117,10 +121,12 @@ const Profile: React.FC<Props> = () => {
                 <Text style={styles.title}>Submit</Text>
               </Button>
 
-              <Button onPress={() => navigation.navigate('ChangeUserPassword')}>
-                <Text style={styles.title}>Change password</Text>
-              </Button>
               <View style={styles.buttonsBox}>
+                <Button
+                  onPress={() => navigation.navigate('ChangeUserPassword')}
+>
+                  <Text style={styles.title}>Change password</Text>
+                </Button>
                 <Button onPress={() => logOutUser()}>
                   <Text style={styles.title}>LogOut</Text>
                 </Button>

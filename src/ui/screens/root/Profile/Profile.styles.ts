@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
     margin: 10,
     padding: 5,
   },
@@ -16,16 +17,25 @@ export const styles = StyleSheet.create({
     backgroundColor: defoultColors.background.auth,
   },
 
+  avatarButton: {
+    position: 'absolute',
+    backgroundColor: defoultColors.background.button,
+    zIndex: 2,
+    borderRadius: 20,
+    padding: 7,
+    margin: 10,
+    bottom: 0,
+    right: 0,
+  },
+
   infoBox: {
     backgroundColor: defoultColors.background.button,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderRadius: 20,
     width: '100%',
-    height: '100%',
-    paddingTop: 60,
+    padding: 30,
   },
 
   changePasswordBox: {
@@ -39,26 +49,20 @@ export const styles = StyleSheet.create({
   },
 
   buttonsBox: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
-  },
-
-  image: {
-    width: 300,
-    height: 300,
+    marginTop: 40,
   },
 
   imageBox: {
     alignItems: 'center',
     borderWidth: 2,
     borderColor: defoultColors.background.button,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     justifyContent: 'center',
-    height: 200,
-    width: '70%',
+    height: 210,
+    width: '55%',
   },
 
   title: {
@@ -85,8 +89,6 @@ export const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     alignItems: 'center',
-    marginTop: -400,
-    marginBottom: 20,
   },
 
   inputContainerPassword: {
