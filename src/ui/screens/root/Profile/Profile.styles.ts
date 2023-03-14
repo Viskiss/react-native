@@ -14,13 +14,14 @@ export const styles = StyleSheet.create({
   theme: {
     position: 'absolute',
     zIndex: 3,
-    top: -20,
-    left: -20,
+    top: 0,
+    left: 0,
   },
 
   avatar: {
     height: 200,
     width: 200,
+    borderRadius: 100,
   },
 
   avatarButton: {
@@ -65,6 +66,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 210,
     width: '55%',
+    borderRadius: 100,
+    marginBottom: 40,
   },
 
   title: {

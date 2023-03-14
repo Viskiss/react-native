@@ -7,6 +7,7 @@ import ListPokemons from 'src/ui/screens/root/ListPokemons';
 
 import MyTabBar from './CustomTabBar/CustomTabBar';
 import { styles } from '../Navigation.styles';
+import CustomHeader from './CustomHeader/CustomHeader';
 
 export type MainTabParamList = {
   Home: undefined;
@@ -23,8 +24,8 @@ const MainTab: React.FC = () => {
       tabBar={(props) => <MyTabBar {...props} />}
       initialRouteName="Home"
 >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="ListPokemons" component={ListPokemons} />
+      <Tab.Screen options={{ headerTitle: () => <CustomHeader title="Home" /> }} name="Home" component={Home} />
+      <Tab.Screen options={{ headerTitle: () => <CustomHeader title="ListPokemons" /> }} name="ListPokemons" component={ListPokemons} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

@@ -111,7 +111,7 @@ const Profile: React.FC<Props> = () => {
                 {theme === 'light' ? <LightTheme /> : <DarkTheme />}
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.avatarButton, { backgroundColor: colors.card }]}
+                style={[styles.avatarButton, { backgroundColor: colors.primary }]}
                 onPress={() => launchImageLibrary({ mediaType: 'photo' }, (e) => addUserAvatar(e))
                 }
 >
