@@ -12,4 +12,6 @@ export const fieldsValidation = {
     .required('Password required'),
   repeatPassword: Yup.string()
     .required('Please retype your password.'),
+  fullName: Yup.string()
+    .min(5, 'Min 5 length, Ex: Aboba'),
 };

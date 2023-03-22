@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,11 +8,12 @@ import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 import { fieldsValidation } from 'src/utils/validationFields';
 import type { RootStackParamList } from 'src/navigation';
+import authUser from 'src/api/requests/authUserApi';
 
 import Input from 'src/ui/components/Input';
 import Button from 'src/ui/components/Button';
 
-import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { useCurrentUser } from 'src/hooks/useCurrentUser-DEV';
 import { styles } from './Login.styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -22,15 +22,7 @@ type ProfileScreenNavigationProp = Props['navigation'];
 
 const Login: React.FC<Props> = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
-  const { setCurrentUser } = useCurrentUser();
-
-  const findRegisteredUser = async (email: string, password: string) => {
-    const registeredUser = await AsyncStorage.getItem(email);
-    if (registeredUser?.includes(password)) {
-      return registeredUser;
-    }
-    return formik.setErrors({ email: 'Need registration' });
-  };
+  const { setCurrentUserWithTokens } = useCurrentUser();
 
   const formik = useFormik({
     initialValues: {
@@ -44,11 +36,8 @@ const Login: React.FC<Props> = () => {
     onSubmit: async (values) => {
       try {
         const { email, password } = values;
-        const loginUser = await findRegisteredUser(email, password);
-        if (loginUser) {
-          await AsyncStorage.setItem('currentUser', loginUser);
-          setCurrentUser();
-        }
+        const user = await authUser.login(email, password);
+        setCurrentUserWithTokens(user.data);
       } catch (error) {
         console.log(error);
       }

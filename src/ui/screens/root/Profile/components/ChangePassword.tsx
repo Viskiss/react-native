@@ -1,13 +1,13 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { fieldsValidation } from 'src/utils/validationFields';
+import updateUser from 'src/api/requests/updateUserApi';
 
 import Input from 'src/ui/components/Input/Input';
 import Button from 'src/ui/components/Button/Button';
@@ -30,36 +30,25 @@ const ChangeUserPassword: React.FC = () => {
       repeatNewPassword: fieldsValidation.repeatPassword,
     }),
     onSubmit: async (values) => {
-      try {
-        const { currentPassword, newPassword, repeatNewPassword } = values;
-        if (currentPassword !== currentUser?.password) {
-          formik.setErrors({ currentPassword: 'Enter your password' });
-        } else if (currentPassword === newPassword) {
-          formik.setErrors({ newPassword: 'Passwords must be different' });
-        } else if (newPassword !== repeatNewPassword) {
-          formik.setErrors({ repeatNewPassword: 'Passwords must be the same' });
+      const { currentPassword, newPassword, repeatNewPassword } = values;
+      if (newPassword !== repeatNewPassword) {
+        formik.setErrors({ repeatNewPassword: 'Retype new password' });
+      } else {
+        try {
+          await updateUser
+            .updatePasswordUser(currentPassword, newPassword, currentUser?.id || 0)
+            .then(() => {
+              Notifier.showNotification({
+                title: 'Password is changed',
+                Component: NotifierComponents.Alert,
+                componentProps: {
+                  alertType: 'success',
+                },
+              });
+            });
+        } catch (error) {
+          console.log(error);
         }
-        const user = {
-          email: currentUser?.email,
-          password: newPassword,
-        };
-
-        await AsyncStorage.mergeItem(
-          `${currentUser?.email}`,
-          JSON.stringify(user),
-        );
-
-        await AsyncStorage.mergeItem('currentUser', JSON.stringify(user));
-
-        Notifier.showNotification({
-          title: 'Password is changed',
-          Component: NotifierComponents.Alert,
-          componentProps: {
-            alertType: 'success',
-          },
-        });
-      } catch (error) {
-        console.log(error);
       }
     },
   });

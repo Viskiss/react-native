@@ -1,11 +1,11 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
-import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { useCurrentUser } from 'src/hooks/useCurrentUser-DEV';
+import authUser from 'src/api/requests/authUserApi';
 
 import { fieldsValidation } from 'src/utils/validationFields';
 
@@ -15,16 +15,8 @@ import Input from 'src/ui/components/Input/Input';
 import { styles } from './Registration.styles';
 
 const Registration: React.FC = () => {
-  const { setCurrentUser } = useCurrentUser();
+  const { setCurrentUserWithTokens } = useCurrentUser();
 
-  const findDubleEmail = async (email: string) => {
-    const registeredEmail = await AsyncStorage.getItem(email);
-    if (registeredEmail) {
-      formik.setErrors({ email: 'This email is registered' });
-    } else {
-      return false;
-    }
-  };
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -37,27 +29,20 @@ const Registration: React.FC = () => {
       repeatPassword: fieldsValidation.repeatPassword,
     }),
     onSubmit: async (values) => {
-      const { email, password } = values;
-      const newUser = {
-        email,
-        password,
-        avatar: null,
-      };
-      try {
-        if ((await findDubleEmail(email)) === false) {
-          await AsyncStorage.setItem('currentUser', JSON.stringify(newUser));
-
-          await AsyncStorage.setItem(
-            `${newUser.email}`,
-            JSON.stringify(newUser),
-          );
-          setCurrentUser();
+      const { email, password, repeatPassword } = values;
+      if (password !== repeatPassword) {
+        formik.setErrors({ repeatPassword: 'Passwords must be the same' });
+      } else {
+        try {
+          const user = await authUser.registration(email, password);
+          setCurrentUserWithTokens(user.data);
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
     },
   });
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>

@@ -1,34 +1,23 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { launchImageLibrary } from 'react-native-image-picker';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
-import {
-  Image,
-  Keyboard,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { Keyboard, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { useCurrentUser } from 'src/hooks/useCurrentUser-DEV';
 import { fieldsValidation } from 'src/utils/validationFields';
+import updateUser from 'src/api/requests/updateUserApi';
 
 import Input from 'src/ui/components/Input/Input';
 import Button from 'src/ui/components/Button/Button';
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import Camera from 'src/ui/assets/Camera.svg';
-import LightTheme from 'src/ui/assets/lightTheme.svg';
-import DarkTheme from 'src/ui/assets/darkTheme.svg';
-
 import { styles } from './Profile.styles';
+import Avatar from './components/Avatar';
 
 type UserProfileStackParamList = {
   Profile: undefined;
@@ -43,87 +32,44 @@ const Profile: React.FC<Props> = () => {
   const { colors } = useTheme();
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
-  const {
-    currentUser,
-    logOutUser,
-    deleteUserProfile,
-    addUserAvatar,
-    changeTheme,
-    theme,
-  } = useCurrentUser();
+  const { currentUser, logOutUser, deleteUserProfile } = useCurrentUser();
 
   const formik = useFormik({
     initialValues: {
       email: currentUser?.email || '',
+      fullName: currentUser?.fullName || '',
     },
     validationSchema: Yup.object({
       email: fieldsValidation.email,
+      fullName: fieldsValidation.fullName,
     }),
     onSubmit: async (values) => {
       try {
-        const { email } = values;
-        if (email === currentUser?.email) {
-          formik.setErrors({ email: 'Email not changed' });
-        } else {
-          const newCurrentUser = {
-            email,
-            password: currentUser?.password,
-          };
+        const { email, fullName } = values;
 
-          await AsyncStorage.removeItem(`${currentUser?.email}`);
-
-          await AsyncStorage.setItem(
-            `${email}`,
-            JSON.stringify(newCurrentUser),
-          );
-
-          await AsyncStorage.setItem(
-            'currentUser',
-            JSON.stringify(newCurrentUser),
-          );
-
-          Notifier.showNotification({
-            title: 'Email is changed',
-            Component: NotifierComponents.Alert,
-            componentProps: {
-              alertType: 'success',
-            },
+        await updateUser
+          .updateUser(email, fullName, currentUser?.id || 0)
+          .then(() => {
+            Notifier.showNotification({
+              title: 'Data is changed',
+              Component: NotifierComponents.Alert,
+              componentProps: {
+                alertType: 'success',
+              },
+            });
           });
-        }
       } catch (error) {
         console.log(error);
       }
     },
   });
 
-  console.log(theme);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         {currentUser && (
           <>
-            <View style={[styles.imageBox, { borderColor: colors.primary }]}>
-              <TouchableOpacity
-                style={styles.theme}
-                onPress={() => changeTheme()}
->
-                {theme === 'light' ? <LightTheme /> : <DarkTheme />}
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.avatarButton, { backgroundColor: colors.primary }]}
-                onPress={() => launchImageLibrary({ mediaType: 'photo' }, (e) => addUserAvatar(e))
-                }
->
-                <Camera />
-              </TouchableOpacity>
-              {currentUser.avatar && (
-                <Image
-                  style={styles.avatar}
-                  source={{ uri: currentUser.avatar }}
-                />
-              )}
-            </View>
+            <Avatar />
             <View style={[styles.infoBox, { backgroundColor: colors.primary }]}>
               <Input
                 containerStyles={styles.inputContainer}
@@ -132,6 +78,17 @@ const Profile: React.FC<Props> = () => {
                 touched={formik.touched.email || ''}
                 onChangeText={formik.handleChange('email')}
                 value={formik.values.email}
+              />
+
+              <Input
+                containerStyles={styles.inputContainer}
+                label="Your Full name"
+                errors={
+                  formik.touched.fullName ? formik.errors.fullName : undefined
+                }
+                touched={formik.touched.fullName || ''}
+                onChangeText={formik.handleChange('fullName')}
+                value={formik.values.fullName}
               />
 
               <Button onPress={formik.handleSubmit}>
@@ -144,10 +101,10 @@ const Profile: React.FC<Props> = () => {
 >
                   <Text style={styles.title}>Change password</Text>
                 </Button>
-                <Button onPress={() => logOutUser()}>
+                <Button onPress={logOutUser}>
                   <Text style={styles.title}>LogOut</Text>
                 </Button>
-                <Button onPress={() => deleteUserProfile()}>
+                <Button onPress={deleteUserProfile}>
                   <Text style={styles.title}>Delete profile</Text>
                 </Button>
               </View>

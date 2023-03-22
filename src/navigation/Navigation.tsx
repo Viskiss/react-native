@@ -3,7 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { ActivityIndicator, View } from 'react-native';
 
-import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { useCurrentUser } from 'src/hooks/useCurrentUser-DEV';
+import updateUser from 'src/api/requests/updateUserApi';
 
 import { darkTheme, defaultColors } from 'src/constants/colors';
 import LoginStack from './components/LoginStack';
@@ -23,7 +24,10 @@ const Navigation: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      await setCurrentUser();
+      if (currentUser) {
+        const user = await updateUser.getCurrentUser(currentUser?.id || 0);
+        await setCurrentUser(user.data);
+      }
       await setCurrentTheme();
       setIsAuthorized(true);
     })();

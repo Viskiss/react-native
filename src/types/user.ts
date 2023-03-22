@@ -1,7 +1,22 @@
 export type User = {
+  id: number;
   email: string;
   password: string;
-  avatar: string;
+  fullName?: string;
+  avatar?: string;
+};
+
+export type UserWithTokens = {
+  user: User;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};
+
+export type Tokens = {
+  accessToken: string;
+  refreshToken: string;
 };
 
 export type Asset = [
